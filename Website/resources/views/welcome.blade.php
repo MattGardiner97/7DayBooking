@@ -4,11 +4,12 @@
 
 <div class="container">
 
-    @if(Auth::guest())
     <div class="col-sm-12 center-block text-center">
         <h2>Welcome To 7Day Psychology Online Booking</h2>
         <p>Please either register or login to make an appointment</p>
     </div>
+
+    @if(Auth::guest())
 
     <div class="row">
         <div class="col-sm-6 center-block text-center mt-5">
@@ -23,11 +24,6 @@
     @else
 
     {{-- Nede an if case the user is a psychologist - they will have a different menu to generic clients--}}
-    <div class="col-sm-12 center-block text-center">
-        <h2>Welcome To 7Day Psychology Online Booking</h2>
-        <p>Please select your option</p>
-    </div>
-
     <div class="row">
         <div class="col-sm-6 center-block text-center mt-5">
             <a href="/register" class="btn btn-success btn-block">Make Appointment</a>
