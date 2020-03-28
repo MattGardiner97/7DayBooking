@@ -14,5 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get("/Schedule/Show","ScheduleController@GetSchedules");
+Route::get("/Schedule/Update","ScheduleController@UpdateSchedule_Get");
+Route::post("/Schedule/Update","ScheduleController@UpdateSchedule_Post");
+Route::get("/Schedule/New", "ScheduleController@CreateSchedule");
+Route::get("/Schedule/Delete","ScheduleController@DeleteSchedule");
