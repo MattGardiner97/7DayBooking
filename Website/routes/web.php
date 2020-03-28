@@ -24,6 +24,10 @@ Route::get("/Schedule/New", "ScheduleController@CreateSchedule");
 Route::get("/Schedule/Delete","ScheduleController@DeleteSchedule");
 Route::get('/home', 'HomeController@index')->name('home');
 
+// ========== ROUTES FOR COUNSELLOR INFO ========== //
+Route::get('/user/{user}', 'UsersController@show');
+// ========== END ROUTES FOR COUNSELLOR INFO ========== //
+
 // ========== ROUTES FOR REGISTRATION / LOGIN / RESET ========== //
 
 // - Only enable ones necessary
