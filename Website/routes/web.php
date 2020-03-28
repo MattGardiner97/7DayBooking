@@ -17,13 +17,11 @@ Route::get('/', function () {
     return view('index');
 });
 
-<<<<<<< HEAD
 Route::get("/Schedule/Show","ScheduleController@GetSchedules");
 Route::get("/Schedule/Update","ScheduleController@UpdateSchedule_Get");
 Route::post("/Schedule/Update","ScheduleController@UpdateSchedule_Post");
 Route::get("/Schedule/New", "ScheduleController@CreateSchedule");
 Route::get("/Schedule/Delete","ScheduleController@DeleteSchedule");
-=======
 Route::get('/home', 'HomeController@index')->name('home');
 
 // ========== ROUTES FOR REGISTRATION / LOGIN / RESET ========== //
@@ -47,4 +45,3 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 // ========== END ROUTES FOR REGISTRATION / LOGIN / RESET ========== //
->>>>>>> 987758455dc50efe739cd731c93b1989ecd9269f
