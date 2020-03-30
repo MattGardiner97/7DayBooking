@@ -9,6 +9,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller{
+public function __construct(){
+    $this->middleware("auth");
+    $this->middleware("roles:Counsellor");
+}
+
     public function UpdateSchedule_Post(Request $request){
         $schedule = Schedule::where("id",$request->input("id"))->first();
         error_log($request);
@@ -31,6 +36,7 @@ class ScheduleController extends Controller{
         return redirect("/Schedule/Update?id=" . $result->id);
     }
 
+    //Gets all schedule for a counsellor
     public function GetSchedules(Request $request){
         $counsellorID = $request->input("CounsellorID");
         $schedules = Schedule::where("CounsellorID",$counsellorID)->get();
