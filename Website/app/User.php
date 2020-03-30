@@ -37,6 +37,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $attributes = [
+        "role" => "Client"
+    ];
+
     // Relationships
     public function appointment() 
     {
