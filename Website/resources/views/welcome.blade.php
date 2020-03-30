@@ -26,7 +26,7 @@
     {{-- Nede an if case the user is a psychologist - they will have a different menu to generic clients--}}
     <div class="row">
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/register" class="btn btn-success btn-block">Make Appointment</a>
+            <a href="NewAppointment" class="btn btn-success btn-block">Make Appointment</a>
         </div>
 
         <div class="col-sm-6 center-block text-center mt-5">

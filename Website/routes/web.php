@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('welcome');
 });
 
 Route::get("/Schedule/Show","ScheduleController@GetSchedules");
@@ -22,7 +22,11 @@ Route::get("/Schedule/Update","ScheduleController@UpdateSchedule_Get");
 Route::post("/Schedule/Update","ScheduleController@UpdateSchedule_Post");
 Route::get("/Schedule/New", "ScheduleController@CreateSchedule");
 Route::get("/Schedule/Delete","ScheduleController@DeleteSchedule");
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get("/Appointment/Create", "AppointmentController@CreateAppointment");
+Route::post("/Appointment/Store", "AppointmentController@StoreAppointment");
 
 // ========== ROUTES FOR COUNSELLOR INFO ========== //
 Route::get('/user/{user}', 'UsersController@show');
