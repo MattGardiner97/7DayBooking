@@ -12,9 +12,9 @@
 
 <body>
     <div class="container">
-        <h1>Schedules for Dr. John Doe</h1>
+        <h1>Schedules for {{$name}}</h1>
 
-        <a class="btn btn-primary mb-2" href="/Schedule/New?CounsellorID={{$counsellorid}}">New</a>
+        <a class="btn btn-primary mb-2" href="/Schedule/New">New</a>
 
     <table class="w-75 mx-auto">
         <thead>

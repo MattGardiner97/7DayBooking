@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 
 use Illuminate\Http\Request;
 
+
 class ScheduleController extends Controller{
 public function __construct(){
     $this->middleware("auth");
@@ -16,7 +17,6 @@ public function __construct(){
 
     public function UpdateSchedule_Post(Request $request){
         $schedule = Schedule::where("id",$request->input("id"))->first();
-        error_log($request);
         $schedule->StartDate = $request->input("StartDate");
         $schedule->EndDate = $request->input("EndDate");
         $schedule->ScheduleString = $request->input("ScheduleString");
@@ -31,16 +31,17 @@ public function __construct(){
     }
 
     public function CreateSchedule(Request $request){
-        $counsellorID = $request->input("CounsellorID");
+        $counsellorID = $request->user()->id;
         $result = Schedule::create(["CounsellorID" => $counsellorID]);
         return redirect("/Schedule/Update?id=" . $result->id);
     }
 
     //Gets all schedule for a counsellor
     public function GetSchedules(Request $request){
-        $counsellorID = $request->input("CounsellorID");
+        $counsellorID = $request->user()->id;
+        $counsellorName = $request->user()->name;
         $schedules = Schedule::where("CounsellorID",$counsellorID)->get();
-        return view("ShowSchedules",["schedules" => $schedules,"counsellorid"=>$counsellorID]);
+        return view("ShowSchedules",["schedules" => $schedules,"name"=>$counsellorName]);
 
     }
 
