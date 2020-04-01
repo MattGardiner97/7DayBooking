@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
+    public function __construct(){
+        $this->middleware("auth");
+        //$this->middleware("roles:Client");
+    }
+
     public function CreateAppointment(){
         return view("NewAppointment");
     }
@@ -17,9 +22,16 @@ class AppointmentController extends Controller
     public function StoreAppointment(Request $request){
         $p_id = $request -> input('p_id');
         $c_id = $request->user()->id;
-        $date = $request -> input('date');
+        if($request -> filled('date')){
+            $date = $request -> input('date');
+        }else{
+            die("Please enter a date!");
+        }
         $time = $request -> input('time');
         $notes = $request -> input('notes');
+        if($notes == NULL){
+            $notes = "";
+        }
         
         $appointment = new Appointment;
         $appointment -> psychologist_id = $p_id;
