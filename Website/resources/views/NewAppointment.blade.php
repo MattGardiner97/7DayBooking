@@ -10,9 +10,15 @@
     </head>
     <div class="container">
         <form method="post">
+           
+        @if (Auth::guest())
+        
             <div class="col-sm-6 center-block text-center mt-5">
-                <a href="/login">You need to register or login</a>
+            <a href="/login">You need to register or login</a>
             </div>
+        
+        @else 
+            
             <div class="col-sm-6 center-block text-center mt-5">
                 <div class="col-md" style="margin: auto">
                     <div class="form-group">
@@ -53,6 +59,7 @@
                     </div>
                 </div>
             </div>
+        @endif
         </form>
         
     </div>
