@@ -25,8 +25,8 @@ Route::get("/Schedule/Delete","ScheduleController@DeleteSchedule");
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get("/Appointment/Create", "AppointmentController@CreateAppointment");
-Route::post("/Appointment/Store", "AppointmentController@StoreAppointment");
+Route::get('NewAppointment', 'AppointmentController@CreateAppointment');
+Route::post('NewAppointment', 'AppointmentController@StoreAppointment');
 
 // ========== ROUTES FOR COUNSELLOR INFO ========== //
 Route::get('/user/{user}', 'UsersController@show');
