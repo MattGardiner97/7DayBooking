@@ -20,13 +20,16 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        // perform check the user is a psycholgist, if not, do not show the user page? 
-        return view('psychologists.view')->with('psychologist', $user);
-        //return $user->name;
+        // check the user the person wants to view is a counsellor
+        if($user->role == 'Counsellor') {
+            return view('psychologists.view')->with('psychologist', $user);
+        } else {
+            return redirect('/');
+        }
     }
 
     public function new()
     {
-        return redirect('/register/psychologist');
+        return view('');
     }
 }
