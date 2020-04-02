@@ -17,11 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get("/Schedule/Show","ScheduleController@GetSchedules");
-Route::get("/Schedule/Update","ScheduleController@UpdateSchedule_Get");
-Route::post("/Schedule/Update","ScheduleController@UpdateSchedule_Post");
-Route::get("/Schedule/New", "ScheduleController@CreateSchedule");
-Route::get("/Schedule/Delete","ScheduleController@DeleteSchedule");
+//Scheduling routes
+Route::get("/schedules/show","SchedulesController@Show");
+Route::get("/schedules/update","SchedulesController@Update_Get");
+Route::post("/schedules/update","SchedulesController@Update_Post");
+Route::get("/schedules/create", "SchedulesController@Create");
+Route::get("/schedules/delete","SchedulesController@Delete");
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -42,4 +43,8 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
-
+//Admin pages
+Route::get("/admin","AdminController@Index");
+Route::get("/admin/verify","AdminController@Verify_Get");
+Route::post("/admin/verify","AdminController@Verify_Post");
+Route::post("/admin/deny","AdminController@Deny_Post");
