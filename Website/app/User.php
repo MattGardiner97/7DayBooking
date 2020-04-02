@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     protected $attributes = [
         "role" => "Client",
-        "verified" => "false"
+        "verified" => 0
     ];
 
     // Relationships
