@@ -44,6 +44,13 @@ class AppointmentController extends Controller
         return redirect('home');
     }
 
+    public function store(Appointment $appointment)
+    {
+        $appointment = Appointment::create($this->validateRequest());
+
+        return redirect('/');
+    }
+
     public function show_all() 
     {
         // get the appointments for the user
@@ -58,5 +65,15 @@ class AppointmentController extends Controller
         $appointment->delete();
 
         return redirect('/appointment/show');
+    }
+
+    protected function validateRequest()
+    {
+        return request()->validate([
+            'psychologist_id' => 'required',
+            'client_id' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+        ]);
     }
 }

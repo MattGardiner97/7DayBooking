@@ -11,10 +11,13 @@
 </head>
 <div class="container">
     <form method="post">
+    {{-- <form action="/appointment" method="POST"> --}}
+        {{-- <input name="client_id" type="hidden" value="{{auth()->user()->id}}"/> --}}
         <div class="col-sm-6 center-block text-center mt-5">
             <div class="col-md" style="margin: auto">
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Select Counsellor</label>
+                    {{-- <select class="form-control" name="psychologist_id"> --}}
                     <select class="form-control" name="p_id">
                         <option value="1">Dr. Timothy Test</option>
                         <option value="2">Dr. Madeline Testerooni</option>

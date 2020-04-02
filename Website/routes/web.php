@@ -28,12 +28,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('NewAppointment', 'AppointmentController@CreateAppointment');
 // Route::get('appointment/new', 'AppointmentController@create');
 Route::post('NewAppointment', 'AppointmentController@StoreAppointment');
-// Route::post('appointment', 'AppointmentController@store');
+Route::post('appointment', 'AppointmentController@store');
 
 Route::get('/appointment/show', 'AppointmentController@show_all');
 Route::delete('appointment/{appointment}', 'AppointmentController@destroy');
 
 Route::get('/user/{user}', 'UsersController@show');
+Route::get('/user/new', 'UsersController@new');
 
 // Authentication Routes
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
