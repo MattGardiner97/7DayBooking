@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    @if(!$appointments->isEmpty())
     <form action="/appointment" method="POST">
         <input name="client_id" type="hidden" value="{{auth()->user()->id}}" />
         <div class="col-sm-12 center-block text-center mt-5">
@@ -43,5 +44,9 @@
             </div>
         </div>
     </form>
+    @else
+    <p>There is an error with the system. Please contact the admin. </p>
+    @endif
+
 </div>
 @endsection
