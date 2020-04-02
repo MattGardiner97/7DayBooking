@@ -49,4 +49,5 @@ Route::post('register', 'Auth\RegisterController@register');
 //Admin pages
 Route::get("/admin","AdminController@Index");
 Route::get("/admin/verify","AdminController@Verify_Get");
+Route::post("/admin/verify","AdminController@Verify_Post");
 
