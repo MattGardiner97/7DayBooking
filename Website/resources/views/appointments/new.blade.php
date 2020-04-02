@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    @if(!$appointments->isEmpty())
+    @if(!$psychologists->isEmpty())
     <form action="/appointment" method="POST">
         <input name="client_id" type="hidden" value="{{auth()->user()->id}}" />
         <div class="col-sm-12 center-block text-center mt-5">
