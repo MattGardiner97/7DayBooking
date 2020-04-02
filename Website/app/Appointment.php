@@ -14,11 +14,11 @@ class Appointment extends Model
 
     public function client() 
     {
-        $this->belongsTo('App\User', 'client_id');
+        return $this->belongsTo('App\User', 'client_id');
     }
 
     public function psychologist()
     {
-        $this->belongsTo('App\User', 'psychologist_id');
+        return $this->belongsTo('App\User', 'psychologist_id');
     }
 }

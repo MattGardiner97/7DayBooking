@@ -26,15 +26,14 @@ Route::get("/Schedule/Delete","ScheduleController@DeleteSchedule");
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('NewAppointment', 'AppointmentController@CreateAppointment');
+// Route::get('appointment/new', 'AppointmentController@create');
 Route::post('NewAppointment', 'AppointmentController@StoreAppointment');
+// Route::post('appointment', 'AppointmentController@store');
 
-// ========== ROUTES FOR COUNSELLOR INFO ========== //
+Route::get('/appointment/show', 'AppointmentController@show_all');
+Route::delete('appointment/{appointment}', 'AppointmentController@destroy');
+
 Route::get('/user/{user}', 'UsersController@show');
-// ========== END ROUTES FOR COUNSELLOR INFO ========== //
-
-// ========== ROUTES FOR REGISTRATION / LOGIN / RESET ========== //
-
-// - Only enable ones necessary
 
 // Authentication Routes
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -45,11 +44,4 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
-// Password Reset Routes
-// Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-// Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-// Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 
-Route::post('password/reset', 'Auth\ResetPasswordController@reset');
-
-// ========== END ROUTES FOR REGISTRATION / LOGIN / RESET ========== //

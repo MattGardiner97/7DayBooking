@@ -30,7 +30,7 @@
         </div>
 
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/login" class="btn btn-danger btn-block">Cancel / Change Appointment</a>
+            <a href="/appointment/show" class="btn btn-danger btn-block">Cancel / Change Appointment</a>
         </div>
     </div>
 

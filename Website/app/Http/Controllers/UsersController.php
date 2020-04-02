@@ -15,6 +15,7 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware("roles:Counsellor")->except('show');
     }
 
     public function show(User $user)
@@ -22,5 +23,10 @@ class UsersController extends Controller
         // perform check the user is a psycholgist, if not, do not show the user page? 
         return view('psychologists.view')->with('psychologist', $user);
         //return $user->name;
+    }
+
+    public function new()
+    {
+        return redirect('/register/psychologist');
     }
 }

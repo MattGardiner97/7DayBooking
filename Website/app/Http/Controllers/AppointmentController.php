@@ -43,4 +43,20 @@ class AppointmentController extends Controller
 
         return redirect('home');
     }
+
+    public function show_all() 
+    {
+        // get the appointments for the user
+        $appointments = Appointment::where('client_id', auth()->user()->id)->get();
+        
+        // return view
+        return view('appointments.all', compact('appointments'));
+    }
+
+    public function destroy(Appointment $appointment)
+    {
+        $appointment->delete();
+
+        return redirect('/appointment/show');
+    }
 }

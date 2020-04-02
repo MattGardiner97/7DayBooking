@@ -44,6 +44,6 @@ class User extends Authenticatable
     // Relationships
     public function appointment() 
     {
-        $this->hasMany('App\Appointment');
+        return $this->hasMany('App\Appointment');
     }
 }
