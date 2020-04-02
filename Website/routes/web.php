@@ -46,4 +46,7 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');
 
+//Admin pages
+Route::get("/admin","AdminController@Index");
+Route::get("/admin/verify","AdminController@Verify_Get");
 
