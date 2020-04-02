@@ -21,7 +21,7 @@
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td><button class="btn btn-primary" onclick="approve_clicked(this);" data-id="{{$user->id}}">Approve</button></td>
-                    <td><button class="btn btn-danger">Deny</button></td>
+                    <td><button class="btn btn-danger" onclick="deny_clicked(this);" data-id="{{$user->id}}">Deny</button></td>
                 </tr>
             @endforeach
         </tbody>

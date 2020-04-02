@@ -50,4 +50,4 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::get("/admin","AdminController@Index");
 Route::get("/admin/verify","AdminController@Verify_Get");
 Route::post("/admin/verify","AdminController@Verify_Post");
-
+Route::post("/admin/deny","AdminController@Deny_Post");

@@ -24,5 +24,15 @@ class AdminController extends Controller
 
     public function Verify_Post(Request $request){
         $userID = $request->input("id");
+        $user = User::where("id",$userID)->first();
+        $user->verified=true;
+        $user->save();
+    }
+
+    public function Deny_Post(Request $request){
+        $userID = $request->input("id");
+        $user = User::where("id",$userID)->first();
+        $user->role = "Client";
+        $user->save();
     }
 }
