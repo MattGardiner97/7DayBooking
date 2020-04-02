@@ -1,29 +1,18 @@
 @extends('layouts.app')
+
 @section('content')
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-        crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="/css/UpdateSchedule.css">
-        <script src="/js/UpdateSchedule.js"></script>
-</head>
 <div class="container">
-    <form method="post">
-    {{-- <form action="/appointment" method="POST"> --}}
-        {{-- <input name="client_id" type="hidden" value="{{auth()->user()->id}}"/> --}}
-        <div class="col-sm-6 center-block text-center mt-5">
+    @if(!$psychologists->isEmpty())
+    <form action="/appointment" method="POST">
+        <input name="client_id" type="hidden" value="{{auth()->user()->id}}" />
+        <div class="col-sm-12 center-block text-center mt-5">
             <div class="col-md" style="margin: auto">
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Select Counsellor</label>
-                    {{-- <select class="form-control" name="psychologist_id"> --}}
-                    <select class="form-control" name="p_id">
-                        <option value="1">Dr. Timothy Test</option>
-                        <option value="2">Dr. Madeline Testerooni</option>
-                        <option value="3">Dr. Samantha nolastname</option>
-                        <option value="4">Dr. John Smith</option>
-                        <option value="5">Dr. Jane Doe</option>
+                    <select class="form-control" name="psychologist_id">
+                        @foreach($psychologists as $psychologist)
+                        <option value="{{$psychologist->id}}">{{$psychologist->name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">
@@ -55,5 +44,9 @@
             </div>
         </div>
     </form>
+    @else
+    <p>There is an error with the system. Please contact the admin. </p>
+    @endif
+
 </div>
 @endsection

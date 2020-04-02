@@ -21,12 +21,24 @@
         </div>
     </div>
 
-    @else
 
-    {{-- Nede an if case the user is a psychologist - they will have a different menu to generic clients--}}
+    @elseif(auth()->user()->role == 'Counsellor')
+    {{-- User is a counsellor --}}
     <div class="row">
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="NewAppointment" class="btn btn-success btn-block">New Appointment</a>
+            <a href="/Schedule/New" class="btn btn-primary btn-block">New Schedule</a>
+        </div>
+
+        <div class="col-sm-6 center-block text-center mt-5">
+            <a href="/Schedule/Show" class="btn btn-success btn-block">View Schedule</a>
+        </div>
+    </div>
+
+    @else
+    {{-- User is a guest --}}
+    <div class="row">
+        <div class="col-sm-6 center-block text-center mt-5">
+            <a href="/appointment/new" class="btn btn-success btn-block">New Appointment</a>
         </div>
 
         <div class="col-sm-6 center-block text-center mt-5">
