@@ -1,5 +1,7 @@
 @extends('layouts.app') @section('content') @php $color = count($users) == 0 ? "lime" : "red"; @endphp
 
+<script src="/js/admin/verify.js"></script>
+
 <div class="container">
     <h1>Verification Requests
         <span id="UserCount" style="color:{{$color}}; font-weight:bold">{{count($users)}}</span>
@@ -18,7 +20,7 @@
                 <tr>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
-                    <td><button class="btn btn-primary">Approve</button></td>
+                    <td><button class="btn btn-primary" onclick="approve_clicked(this);" data-id="{{$user->id}}">Approve</button></td>
                     <td><button class="btn btn-danger">Deny</button></td>
                 </tr>
             @endforeach

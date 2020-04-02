@@ -21,4 +21,8 @@ class AdminController extends Controller
         $unverifiedUsers =  User::where([["role", "=", "Counsellor"],["verified", "=","false"]])->get();
         return view("admin/verify", ["users"=>$unverifiedUsers]);
     }
+
+    public function Verify_Post(Request $request){
+        $userID = $request->input("id");
+    }
 }
