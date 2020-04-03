@@ -26,11 +26,15 @@
     {{-- User is a counsellor --}}
     <div class="row">
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/Schedule/New" class="btn btn-primary btn-block">New Schedule</a>
+            <a href="/schedule/new" class="btn btn-primary btn-block">New Schedule</a>
         </div>
 
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/Schedule/Show" class="btn btn-success btn-block">View Schedule</a>
+            <a href="/schedule/show" class="btn btn-success btn-block">View Schedule</a>
+        </div>
+
+        <div class="col-sm-6 center-block text-center mt-5">
+            <a href="/appointments/showcounsellor" class="btn btn-primary btn-block"> View Appointments</a>
         </div>
     </div>
 
@@ -38,11 +42,11 @@
     {{-- User is a guest --}}
     <div class="row">
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/appointment/new" class="btn btn-success btn-block">New Appointment</a>
+            <a href="/appointments/new" class="btn btn-success btn-block">New Appointment</a>
         </div>
 
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/appointment/show" class="btn btn-danger btn-block">Cancel / Change Appointment</a>
+            <a href="/appointments/show" class="btn btn-danger btn-block">Cancel / Change Appointment</a>
         </div>
     </div>
 

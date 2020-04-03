@@ -36,6 +36,16 @@ class AppointmentsController extends Controller
         return view('appointments.all', compact('appointments'));
     }
 
+    // Show all the appointments for the counseller
+    public function show_allCounsellor()
+    {
+        $appointments = Appointment::where('psychologist_id', auth()->user()->id)->get();
+
+        //return view
+        return view('appointments.allc', compact('appointments'));
+
+    }
+
     // Store the appointment to database
     public function store(Appointment $appointment)
     {
