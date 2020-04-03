@@ -6,9 +6,9 @@
 
     <div class="col-sm-12 center-block text-center">
         
-        <h2>Accomplishments for {{$counseller[0]->name ?? ''}}</h2>
+        <h2>Accomplishments for {{$counseller->name ?? ''}}</h2>
         <p></p>
-        <p>{{$bio[0]->details}}&nbsp;</p>
+        <p>{{$bio->details}}&nbsp;</p>
         
          
     </div>
