@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password'
+        'name', 'email', 'password', "requested_verification"
     ];
 
     /**
@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     protected $attributes = [
         "role" => "Client",
-        "verified" => 0
+        "requested_verification" => 0
     ];
 
     // Relationships
