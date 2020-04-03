@@ -30,7 +30,10 @@ Route::get('/appointments/new', 'AppointmentsController@create');
 Route::post('appointments', 'AppointmentsController@store');
 Route::get('/appointments/show', 'AppointmentsController@show_all');
 Route::get('/appointments/showcounsellor', 'AppointmentsController@show_allCounsellor');
-Route::delete('appointments/{appointment}', 'AppointmentsController@destroy');
+Route::delete('appointments/show', 'AppointmentsController@destroy');
+
+//counsellor bio info
+Route::get('/psychologists/show', 'BiographysController@show');
 
 Route::get('/user/{user}', 'UsersController@show');
 Route::get('/user/new', 'UsersController@new');
