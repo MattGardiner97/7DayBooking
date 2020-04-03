@@ -13,19 +13,20 @@ class AdminController extends Controller
     }
 
     public function Index(){
-        $unverifiedUsers =  User::where([["role", "=", "Counsellor"],["verified", "=","false"]])->get();
+        $unverifiedUsers =  User::where("requested_verification",1)->get();
         return view("admin/index", ["users"=>$unverifiedUsers]);
     }
 
     public function Verify_Get(){
-        $unverifiedUsers =  User::where([["role", "=", "Counsellor"],["verified", "=","false"]])->get();
+        $unverifiedUsers =  User::where("requested_verification",1)->get();
         return view("admin/verify", ["users"=>$unverifiedUsers]);
     }
 
     public function Verify_Post(Request $request){
         $userID = $request->input("id");
         $user = User::where("id",$userID)->first();
-        $user->verified=true;
+        $user->role = "Counsellor";
+        $user->requested_verification = 0;
         $user->save();
     }
 

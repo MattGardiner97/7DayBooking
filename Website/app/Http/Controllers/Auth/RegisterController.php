@@ -20,7 +20,7 @@ class RegisterController extends Controller
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
-    */
+     */
 
     use RegistersUsers;
 
@@ -49,10 +49,12 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            "requested_verification" => ["accepted"]
         ]);
     }
 
@@ -64,10 +66,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $r_ver = $data["requested_verification"] == "on";
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            "requested_verification" => $r_ver
         ]);
     }
 }
