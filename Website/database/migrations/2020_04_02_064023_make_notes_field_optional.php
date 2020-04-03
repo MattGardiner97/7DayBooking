@@ -13,7 +13,7 @@ class MakeNotesFieldOptional extends Migration
      */
     public function up()
     {
-        Schema::table("appointments", function(Blueprint $table){
+        Schema::table("appointments", function (Blueprint $table) {
             $table->longText('notes')->nullable()->change();
         });
     }
@@ -25,6 +25,9 @@ class MakeNotesFieldOptional extends Migration
      */
     public function down()
     {
-        //
+        Schema::table("appointments", function (Blueprint $table) {
+
+            $table->longText("notes")->change();
+        });
     }
 }

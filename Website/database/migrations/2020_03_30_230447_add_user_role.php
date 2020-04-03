@@ -14,7 +14,7 @@ class AddUserRole extends Migration
     public function up()
     {
         Schema::table("users", function(Blueprint $table){
-            $table->text("role");
+            $table->text("role")->default("Client");
         });
     }
 
@@ -25,7 +25,7 @@ class AddUserRole extends Migration
      */
     public function down()
     {
-        Scheme::table("users",function(Blueprint $table){
+        Schema::table("users",function(Blueprint $table){
             $table->dropColumn(["role"]);
         });
     }
