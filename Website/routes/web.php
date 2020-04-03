@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Home page
+Route::get('/home', 'HomeController@index')->name('home');
+
 //Scheduling routes
 Route::get("/schedules/show","SchedulesController@Show");
 Route::get("/schedules/update","SchedulesController@Update_Get");
@@ -24,14 +27,15 @@ Route::post("/schedules/update","SchedulesController@Update_Post");
 Route::get("/schedules/create", "SchedulesController@Create");
 Route::get("/schedules/delete","SchedulesController@Delete");
 
-Route::get('/home', 'HomeController@index')->name('home');
-
+//Appointment routes
 Route::get('/appointments/new', 'AppointmentsController@create');
 Route::post('appointments', 'AppointmentsController@store');
 Route::get('/appointments/show', 'AppointmentsController@show_all');
 Route::get('/appointments/showcounsellor', 'AppointmentsController@show_allCounsellor');
 Route::delete('appointments/{appointment}', 'AppointmentsController@destroy');
+Route::get("/appointments/GetAvailableTimeslots","AppointmentsController@GetAvailableTimeslots");
 
+//User routes
 Route::get('/user/{user}', 'UsersController@show');
 Route::get('/user/new', 'UsersController@new');
 
