@@ -29,8 +29,8 @@ class BiographysController extends Controller
         //echo $counsellerId;
         $bio = Biography::where('psychologist_id', $counsellerId)->get();
         $counseller = User::where('id',$counsellerId)->get();
-        echo $counseller;//->name;
-        echo $bio;
+        //echo $counseller;//->name;
+        //echo $bio;
         return view ('psychologists.view',[ 'counseller' => $counseller, 'bio' => $bio] );
     }
 }
