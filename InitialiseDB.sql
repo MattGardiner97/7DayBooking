@@ -8,6 +8,6 @@ USE bookingsystem;
 CREATE USER 'websiteuser'@'localhost'
 IDENTIFIED BY 'coit13230user';
 
-GRANT CREATE,ALTER,SELECT,INSERT,UPDATE,DELETE
+GRANT CREATE,ALTER,SELECT,INSERT,UPDATE,DELETE,DROP
 ON bookingsystem.*
 TO 'websiteuser'@'localhost';
