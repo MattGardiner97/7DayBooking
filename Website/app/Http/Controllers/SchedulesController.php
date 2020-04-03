@@ -11,7 +11,7 @@ class SchedulesController extends Controller
     public function __construct()
     {
         $this->middleware("auth");
-        $this->middleware("roles:Counsellor");
+        $this->middleware("roles:Counsellor"); //Restrict actions to counsellors
     }
 
     //Displays all schedules for a counsellor
@@ -23,6 +23,7 @@ class SchedulesController extends Controller
         return view("Schedules/Show", ["schedules" => $schedules, "name" => $counsellorName]);
     }
 
+    //Creates a new schedule
     public function Create(Request $request)
     {
         $counsellorID = $request->user()->id;
@@ -30,6 +31,7 @@ class SchedulesController extends Controller
         return redirect("/schedules/update?id=" . $result->id);
     }
 
+    //Retrieves the page schedule update page
     public function Update_Get(Request $request)
     {
         $id = $request->input("id");
@@ -37,6 +39,7 @@ class SchedulesController extends Controller
         return view("schedules/update", ["schedule" => $result]);
     }
 
+    //The post action for updating a schedule
     public function Update_Post(Request $request)
     {
         $schedule = Schedule::where("id", $request->input("id"))->first();
@@ -47,6 +50,7 @@ class SchedulesController extends Controller
         return redirect("/schedules/show");
     }
 
+    //Delete a schedule
     public function Delete(Request $request)
     {
         $scheduleID = $request->input("id");
