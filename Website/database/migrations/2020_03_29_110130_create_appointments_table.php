@@ -19,7 +19,7 @@ class CreateAppointmentsTable extends Migration
             $table->integer('client_id');
             $table->integer('counsellor_id');
             $table->date('date');
-            $table->time('time');
+            $table->integer('time');
             $table->longText('notes');
         });
     }
