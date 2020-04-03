@@ -17,7 +17,7 @@ class CreateAppointmentsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('client_id');
-            $table->integer('psychologist_id');
+            $table->integer('counsellor_id');
             $table->date('date');
             $table->time('time');
             $table->longText('notes');
