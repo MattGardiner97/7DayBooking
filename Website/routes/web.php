@@ -26,10 +26,11 @@ Route::get("/schedules/delete","SchedulesController@Delete");
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/appointment/new', 'AppointmentsController@create');
-Route::post('appointment', 'AppointmentsController@store');
-Route::get('/appointment/show', 'AppointmentsController@show_all');
-Route::delete('appointment/{appointment}', 'AppointmentsController@destroy');
+Route::get('/appointments/new', 'AppointmentsController@create');
+Route::post('appointments', 'AppointmentsController@store');
+Route::get('/appointments/show', 'AppointmentsController@show_all');
+Route::get('/appointments/showcounsellor', 'AppointmentsController@show_allCounsellor');
+Route::delete('appointments/{appointment}', 'AppointmentsController@destroy');
 
 Route::get('/user/{user}', 'UsersController@show');
 Route::get('/user/new', 'UsersController@new');
