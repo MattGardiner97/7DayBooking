@@ -27,5 +27,6 @@ class Schedule extends Model
             $hourArray = explode(",",$day);
             array_push($result,$hourArray);
         }
+        return $result;
     }
 }
