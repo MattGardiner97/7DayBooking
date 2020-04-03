@@ -14,7 +14,6 @@ class AddRequestedVerification extends Migration
     public function up()
     {
         Schema::table("users",function(Blueprint $table){
-            $table->dropColumn("verified");
             $table->boolean("requested_verification")->default(0);
         });
     }
@@ -28,7 +27,6 @@ class AddRequestedVerification extends Migration
     {
         Schema::table("users",function(Blueprint $table){
             $table->dropColumn("requested_verification");
-            $table->boolean("verified")->default(0);
         });
     }
 }
