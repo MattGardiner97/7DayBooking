@@ -14,7 +14,7 @@
     <div class="container">
         <h1>Schedules for {{$name}}</h1>
 
-        <a class="btn btn-primary mb-2" href="/Schedule/New">New</a>
+        <a class="btn btn-primary mb-2" href="/schedules/create">New</a>
 
     <table class="w-75 mx-auto">
         <thead>
@@ -32,8 +32,8 @@
                     <!-- <td>{{$loop->index}}</td> -->
                     <td class="text-center">{{$schedule->StartDate}}</td>
                     <td class="text-center">{{$schedule->EndDate}}</td>
-                    <td class="text-center"><a href="/Schedule/Update?id={{$schedule->id}}">Edit</a></td>
-                    <td class="text-center"><a href="/Schedule/Delete?id={{$schedule->id}}">Delete</a></td>
+                    <td class="text-center"><a href="/schedules/update?id={{$schedule->id}}">Edit</a></td>
+                    <td class="text-center"><a href="/schedules/delete?id={{$schedule->id}}">Delete</a></td>
                 </tr>
             @endforeach
         </tbody>
