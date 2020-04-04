@@ -21,7 +21,7 @@
                 <tr>
                     <th scope="row">{{$appointment->date}}</th>
                     <td>{{$appointment->time}}</td>
-                    <td>{{$appointment->psychologist->name}}</td>
+                    <td><a href='/psychologists/show?id={{$appointment->psychologist->id}}'>{{$appointment->psychologist->name}}</a></td>
                     <td>
                         {{-- <button type="button" class="btn btn-small btn-primary mr-2">Change</button> --}}
                         <form action="/appointment/{{$appointment->id}}" method="POST">

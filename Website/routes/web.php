@@ -35,6 +35,9 @@ Route::get('/appointments/showcounsellor', 'AppointmentsController@show_allCouns
 Route::delete('appointments/delete', 'AppointmentsController@destroy');
 Route::get("/appointments/GetAvailableTimeslots","AppointmentsController@GetAvailableTimeslots");
 
+//counsellor bio info
+Route::get('/psychologists/show', 'BiographysController@show');
+
 //User routes
 Route::get('/user/{user}', 'UsersController@show');
 Route::get('/user/new', 'UsersController@new');
