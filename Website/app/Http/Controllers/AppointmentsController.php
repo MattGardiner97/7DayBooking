@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Appointment;
-use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-
+use App\Schedule;
+use App\User;
+use DateTime;
 use Illuminate\Http\Request;
 
 class AppointmentsController extends Controller
@@ -31,7 +31,7 @@ class AppointmentsController extends Controller
     {
         // get the appointments for the user
         $appointments = Appointment::where('client_id', auth()->user()->id)->get();
-        
+
         // return view
         return view('appointments.all', compact('appointments'));
     }
@@ -50,7 +50,7 @@ class AppointmentsController extends Controller
     public function store(Appointment $appointment)
     {
         $appointment = Appointment::create($this->validateRequest());
- 
+
         return redirect('/');
     }
 
@@ -60,6 +60,42 @@ class AppointmentsController extends Controller
         $appointment->delete();
 
         return redirect('/appointment/show');
+    }
+
+    //Gets available timeslots for a given counsellor and date
+    public function GetAvailableTimeslots(Request $request)
+    {
+        $request->validate([
+            "CounsellorID" => "required|integer",
+            "Date" => "required|date",
+        ]);
+
+        $CounsellorID = $request->input("CounsellorID");
+        $Date = new DateTime($request->input("Date"));
+        $dayIndex = $Date->format("N") - 1;
+
+        //Get the counsellors schedule for this date
+        $schedule = Schedule::where([
+            ["CounsellorID", "=", $CounsellorID],
+            ["StartDate", "<=", $Date],
+            ["EndDate", ">=", $Date],
+        ])->first();
+
+        if ($schedule == null) {
+            return;
+        }
+
+        // Get the available timeslots for this day of the week
+        $hourArray = $schedule->GetTimeslots()[$dayIndex];
+
+        $existingAppointmentTimes = Appointment::where([
+            ["counsellor_id", "=", $CounsellorID],
+            ["date", "=", $Date],
+        ])->pluck("time")->toArray();
+
+        $availableTimes = array_diff($hourArray, $existingAppointmentTimes);
+
+        return response()->json($availableTimes);
     }
 
     // Validate data
