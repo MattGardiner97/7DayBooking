@@ -38,6 +38,8 @@ Route::get("/appointments/GetAvailableTimeslots","AppointmentsController@GetAvai
 //counsellor bio info
 Route::get('/psychologists/show', 'BiographysController@show');
 
+Route::get('/psychologists/show/{user}', 'BiographysController@show_2');
+
 //User routes
 Route::get('/user/{user}', 'UsersController@show');
 Route::get('/user/new', 'UsersController@new');

@@ -34,8 +34,8 @@ class BiographysController extends Controller
         return view ('psychologists.view',[ 'counseller' => $counseller, 'bio' => $bio] );
     }
 
-    public function show_2(Biography $bio)
+    public function show_2(User $user)
     {
-        return view('psychologists.view')->with('counsellor', $bio->psychologist)->with('bio', $bio);
+        return view('psychologists.view')->with('counsellor', $user)->with('bio', $user->bio);
     }
 }
