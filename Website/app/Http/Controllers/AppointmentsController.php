@@ -20,10 +20,10 @@ class AppointmentsController extends Controller
     // Show the new appointment form
     public function create()
     {
-        $psychologists = User::where('role', 'Counsellor')->get();
+        $counsellors = User::where('role', 'Counsellor')->get();
 
-        // return $psychologists;
-        return view("appointments.new")->with('psychologists', $psychologists);
+        // return $counsellors;
+        return view("appointments.new")->with('counsellors', $counsellors);
     }
 
     // Show the all appointments page
@@ -39,7 +39,7 @@ class AppointmentsController extends Controller
     // Show all the appointments for the counseller
     public function show_allCounsellor()
     {
-        $appointments = Appointment::where('psychologist_id', auth()->user()->id)->get();
+        $appointments = Appointment::where('counsellor_id', auth()->user()->id)->get();
 
         //return view
         return view('appointments.allc', compact('appointments'));
@@ -106,7 +106,7 @@ class AppointmentsController extends Controller
     protected function validateRequest()
     {
         return request()->validate([
-            'psychologist_id' => 'required',
+            'counsellor_id' => 'required',
             'client_id' => 'required',
             'date' => 'required',
             'time' => 'required',

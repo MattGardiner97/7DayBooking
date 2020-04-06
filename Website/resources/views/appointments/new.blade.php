@@ -7,17 +7,21 @@
 
 
 @section('content')
+@foreach($errors->all() as $error)
+<div>{{$error}}</div>
+@endforeach
+
 <div class="container">
-    @if(!$psychologists->isEmpty())
+    @if(!$counsellors->isEmpty())
     <form action="/appointments" method="POST">
         <input name="client_id" type="hidden" value="{{auth()->user()->id}}" />
         <div class="col-sm-12 center-block text-center mt-5">
             <div class="col-md" style="margin: auto">
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Select Counsellor</label>
-                    <select class="form-control" name="psychologist_id" id="txtCounsellor">
-                        @foreach($psychologists as $psychologist)
-                        <option value="{{$psychologist->id}}">{{$psychologist->name}}</option>
+                    <select class="form-control" name="counsellor_id" id="txtCounsellor">
+                        @foreach($counsellors as $counsellor)
+                        <option value="{{$counsellor->id}}">{{$counsellor->name}}</option>
                         @endforeach
                     </select>
                 </div>
