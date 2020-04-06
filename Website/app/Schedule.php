@@ -25,7 +25,12 @@ class Schedule extends Model
         $dayArray = explode("/",$this->ScheduleString);
         foreach($dayArray as $day){
             $hourArray = explode(",",$day);
+            if($hourArray[0] == ""){
+                array_push($result,array());
+            }
+            else{
             array_push($result,$hourArray);
+            }
         }
         return $result;
     }
