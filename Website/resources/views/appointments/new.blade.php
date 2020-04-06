@@ -1,5 +1,11 @@
 @extends('layouts.app')
 
+
+@section('scripts')
+<script src="/js/appointment/new.js"></script>
+@endsection
+
+
 @section('content')
 <div class="container">
     @if(!$psychologists->isEmpty())
@@ -9,7 +15,7 @@
             <div class="col-md" style="margin: auto">
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Select Counsellor</label>
-                    <select class="form-control" name="psychologist_id">
+                    <select class="form-control" name="psychologist_id" id="txtCounsellor">
                         @foreach($psychologists as $psychologist)
                         <option value="{{$psychologist->id}}">{{$psychologist->name}}</option>
                         @endforeach
@@ -17,21 +23,14 @@
                 </div>
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Enter Date</label>
-                    <input type="date" name="date" class="form-control">
+                    <input type="date" name="date" class="form-control" id="dateSelect" onchange="appointmentDate_changed(this)">
                 </div>
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Select Time</label>
-                    <select class="form-control" name="time">
-                        <option value="9">9am</option>
-                        <option value="10">10am</option>
-                        <option value="11">11am</option>
-                        <option value="12">12am</option>
-                        <option value="13">1pm</option>
-                        <option value="14">2pm</option>
-                        <option value="15">3pm</option>
-                        <option value="16">4pm</option>
-                        <option value="17">5pm</option>
+                    <select class="form-control" name="time" id="selectTime">
+                        
                     </select>
+                    <div class="text-danger d-none" id="timeError">There are no appointments available on this date.</div>
                 </div>
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Enter Notes</label>
