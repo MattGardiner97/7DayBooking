@@ -33,7 +33,7 @@ Route::post('/appointments', 'AppointmentsController@store');
 Route::get('/appointments/show', 'AppointmentsController@show_all');
 Route::get('/appointments/showcounsellor', 'AppointmentsController@show_allCounsellor');
 Route::delete('appointments/delete', 'AppointmentsController@destroy');
-Route::get("/appointments/GetAvailableTimeslots","AppointmentsController@GetAvailableTimeslots");
+Route::get("/appointments/getavailabletimeslots","AppointmentsController@GetAvailableTimeslots");
 
 //counsellor bio info
 Route::get('/psychologists/show', 'BiographysController@show');
