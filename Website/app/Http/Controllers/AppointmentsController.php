@@ -87,6 +87,10 @@ class AppointmentsController extends Controller
 
         // Get the available timeslots for this day of the week
         $hourArray = $schedule->GetTimeslots()[$dayIndex];
+        if(count($hourArray) == 0)
+        {
+            return;
+        }
 
         $existingAppointmentTimes = Appointment::where([
             ["counsellor_id", "=", $CounsellorID],
