@@ -93,7 +93,7 @@ class AppointmentsController extends Controller
         }
 
         $existingAppointmentTimes = Appointment::where([
-            ["counsellor_id", "=", $CounsellorID],
+            ["psychologist_id", "=", $CounsellorID],
             ["date", "=", $Date],
         ])->pluck("time")->toArray();
 
