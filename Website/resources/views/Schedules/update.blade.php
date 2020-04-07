@@ -46,7 +46,7 @@
             </tobdy>
         </table>
 
-    <form method="post" action="/Schedule/Update">
+    <form method="post" action="/schedules/update">
         <input type="hidden" name="id" id="txtID" value="{{$schedule->id}}">
         <input type="hidden" name="StartDate" id="dateStartHidden">
         <input type="hidden" name="EndDate" id="dateEndHidden">

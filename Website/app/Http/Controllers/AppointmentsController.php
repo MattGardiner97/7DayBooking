@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Appointment;
-use App\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
-
+use App\Schedule;
+use App\User;
+use DateTime;
 use Illuminate\Http\Request;
 
 class AppointmentsController extends Controller
@@ -20,10 +20,10 @@ class AppointmentsController extends Controller
     // Show the new appointment form
     public function create()
     {
-        $psychologists = User::where('role', 'Counsellor')->get();
+        $counsellors = User::where('role', 'Counsellor')->get();
 
-        // return $psychologists;
-        return view("appointments.new")->with('psychologists', $psychologists);
+        // return $counsellors;
+        return view("appointments.new")->with('counsellors', $counsellors);
     }
 
     // Show the all appointments page
@@ -31,7 +31,7 @@ class AppointmentsController extends Controller
     {
         // get the appointments for the user
         $appointments = Appointment::where('client_id', auth()->user()->id)->get();
-        
+
         // return view
         return view('appointments.all', compact('appointments'));
     }
@@ -39,7 +39,7 @@ class AppointmentsController extends Controller
     // Show all the appointments for the counseller
     public function show_allCounsellor()
     {
-        $appointments = Appointment::where('psychologist_id', auth()->user()->id)->get();
+        $appointments = Appointment::where('counsellor_id', auth()->user()->id)->get();
 
         //return view
         return view('appointments.allc', compact('appointments'));
@@ -50,7 +50,7 @@ class AppointmentsController extends Controller
     public function store(Appointment $appointment)
     {
         $appointment = Appointment::create($this->validateRequest());
- 
+
         return redirect('/');
     }
 
@@ -62,11 +62,51 @@ class AppointmentsController extends Controller
         return redirect('/appointment/show');
     }
 
+    //Gets available timeslots for a given counsellor and date
+    public function GetAvailableTimeslots(Request $request)
+    {
+        $request->validate([
+            "CounsellorID" => "required|integer",
+            "Date" => "required|date",
+        ]);
+
+        $CounsellorID = $request->input("CounsellorID");
+        $Date = new DateTime($request->input("Date"));
+        $dayIndex = $Date->format("N") - 1;
+
+        //Get the counsellors schedule for this date
+        $schedule = Schedule::where([
+            ["CounsellorID", "=", $CounsellorID],
+            ["StartDate", "<=", $Date],
+            ["EndDate", ">=", $Date],
+        ])->first();
+
+        if ($schedule == null) {
+            return;
+        }
+
+        // Get the available timeslots for this day of the week
+        $hourArray = $schedule->GetTimeslots()[$dayIndex];
+        if(count($hourArray) == 0)
+        {
+            return;
+        }
+
+        $existingAppointmentTimes = Appointment::where([
+            ["counsellor_id", "=", $CounsellorID],
+            ["date", "=", $Date],
+        ])->pluck("time")->toArray();
+
+        $availableTimes = array_diff($hourArray, $existingAppointmentTimes);
+
+        return response()->json($availableTimes);
+    }
+
     // Validate data
     protected function validateRequest()
     {
         return request()->validate([
-            'psychologist_id' => 'required',
+            'counsellor_id' => 'required',
             'client_id' => 'required',
             'date' => 'required',
             'time' => 'required',

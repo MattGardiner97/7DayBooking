@@ -32,4 +32,9 @@ class BiographysController extends Controller
         //echo $bio;
         return view ('psychologists.view', ['counseller'=>$counseller ]);
     }
+
+    public function show_2(User $user)
+    {
+        return view('psychologists.view')->with('counsellor', $user)->with('bio', $user->bio);
+    }
 }

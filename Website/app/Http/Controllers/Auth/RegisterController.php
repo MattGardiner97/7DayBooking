@@ -54,7 +54,6 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            "requested_verification" => ["accepted"]
         ]);
     }
 
@@ -66,13 +65,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $r_ver = $data["requested_verification"] == "on";
+        $requestedVerification = 0;
+        if(array_key_exists("requested_verification",$data)){
+            $requestedVerification = $data["requested_verification"] == "on";
+        }
 
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            "requested_verification" => $r_ver
+            "requested_verification" => $requestedVerification
         ]);
     }
 }

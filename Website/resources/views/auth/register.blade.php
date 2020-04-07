@@ -62,10 +62,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Register as Counsellor?</label>
+                            <label for="verification-requested" class="col-md-4 col-form-label text-md-right">Register as Counsellor?</label>
 
                             <div class="col-md-6">
-                                <input id="verification-requested" type="checkbox" class="form-control" name="requested_verification" required>
+                                <input id="verification-requested" type="checkbox" class="form-control" name="requested_verification">
                             </div>
                         </div>
 

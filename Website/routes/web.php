@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Home page
+Route::get('/home', 'HomeController@index')->name('home');
+
 //Scheduling routes
 Route::get("/schedules/show","SchedulesController@Show");
 Route::get("/schedules/update","SchedulesController@Update_Get");
@@ -24,17 +27,20 @@ Route::post("/schedules/update","SchedulesController@Update_Post");
 Route::get("/schedules/create", "SchedulesController@Create");
 Route::get("/schedules/delete","SchedulesController@Delete");
 
-Route::get('/home', 'HomeController@index')->name('home');
-
+//Appointment routes
 Route::get('/appointments/new', 'AppointmentsController@create');
-Route::post('appointments', 'AppointmentsController@store');
+Route::post('/appointments', 'AppointmentsController@store');
 Route::get('/appointments/show', 'AppointmentsController@show_all');
 Route::get('/appointments/showcounsellor', 'AppointmentsController@show_allCounsellor');
-Route::delete('appointments/show', 'AppointmentsController@destroy');
+Route::delete('appointments/delete', 'AppointmentsController@destroy');
+Route::get("/appointments/getavailabletimeslots","AppointmentsController@GetAvailableTimeslots");
 
 //counsellor bio info
 Route::get('/psychologists/show', 'BiographysController@show');
 
+Route::get('/psychologists/show/{user}', 'BiographysController@show_2');
+
+//User routes
 Route::get('/user/{user}', 'UsersController@show');
 Route::get('/user/new', 'UsersController@new');
 
