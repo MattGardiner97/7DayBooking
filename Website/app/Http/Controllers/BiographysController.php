@@ -26,11 +26,10 @@ class BiographysController extends Controller
     public function show(Request $request)
     {
         $counsellerId = $request->query("id");
-        //echo $counsellerId;
-        $bio = Biography::where('psychologist_id', $counsellerId)->first();
+      
         $counseller = User::where('id',$counsellerId)->first();
         //echo $counseller;//->name;
         //echo $bio;
-        return view ('psychologists.view',[ 'counseller' => $counseller, 'bio' => $bio] );
+        return view ('psychologists.view', ['counseller'=>$counseller ]);
     }
 }
