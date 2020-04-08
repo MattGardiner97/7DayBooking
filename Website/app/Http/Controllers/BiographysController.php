@@ -18,7 +18,7 @@ class BiographysController extends Controller
     public function create()
     {
         $psychologists = User::where('role', 'Counsellor')->get();
-        return view('psychologists.new' )->with('psychologists', $psychologists);
+        return view('psychologists.new' )->with('counseller', $psychologists);
 
     }
 
