@@ -8,6 +8,7 @@ use App\Schedule;
 use App\User;
 use DateTime;
 use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Request;
 
 class AppointmentsController extends Controller
 {
@@ -55,11 +56,11 @@ class AppointmentsController extends Controller
     }
 
     // Delete the appointment from database
-    public function destroy(Appointment $appointment)
+    public function destroy(Request $request)
     {
-        $appointment->delete();
+        $appointment = Appointment::where('id', $request->input('appointment_id'))->delete();
 
-        return redirect('/appointment/show');
+        return redirect('/appointments/show');
     }
 
     //Gets available timeslots for a given counsellor and date
