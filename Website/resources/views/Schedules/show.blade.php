@@ -8,7 +8,7 @@
 <div class="container">
     <h1>Schedules for {{$name}}</h1>
 
-    <a class="btn btn-primary mb-2" href="/schedules/create">New</a>
+    <a class="btn btn-primary mb-2" href="/schedules/new">New</a>
 
     <table class="w-75 mx-auto">
         <thead>

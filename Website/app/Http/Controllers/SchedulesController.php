@@ -20,14 +20,23 @@ class SchedulesController extends Controller
         $counsellorID = $request->user()->id;
         $counsellorName = $request->user()->name;
         $schedules = Schedule::where("CounsellorID", $counsellorID)->get();
-        return view("Schedules/Show", ["schedules" => $schedules, "name" => $counsellorName]);
+        return view("schedules.show", ["schedules" => $schedules, "name" => $counsellorName]);
+    }
+
+    //Displays new schedule page
+    public function New(Request $request) {
+        return view("schedules.new");
     }
 
     //Creates a new schedule
     public function Create(Request $request)
     {
+//TODO: Add validation
+
         $counsellorID = $request->user()->id;
-        $result = Schedule::create(["CounsellorID" => $counsellorID]);
+        $startDate = $request->input("startDate");
+        $endDate = $request->input("endDate");
+        $result = Schedule::create(["CounsellorID" => $counsellorID, "StartDate" => $startDate, "EndDate" => $endDate]);
         return redirect("/schedules/update?id=" . $result->id);
     }
 
@@ -60,7 +69,4 @@ class SchedulesController extends Controller
         return redirect("/schedules/show");
     }
 
-    
-
-    
 }
