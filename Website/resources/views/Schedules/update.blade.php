@@ -1,50 +1,52 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.app') 
 
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-        crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="/css/UpdateSchedule.css">
-        <script src="/js/UpdateSchedule.js"></script>
-</head>
 
-<body>
-    <div class="container">
-        <h1>Update Schedule</h1>
+@section('scripts')
+<link rel="stylesheet" href="/css/UpdateSchedule.css">
+<script src="/js/UpdateSchedule.js"></script> 
+@endsection
 
-    <div class="input-group">
-        <label>Start Date</label>
-        <input type="date" min="{{date('Y-m-d')}}" value="{{date('Y-m-d')}}" id="DateStart">
-    </div>
-    <div class="input-group">
-        <label>End Date
-        <input type="date" min="{{date('Y-m-d')}}" value="{{date('Y-m-d')}}" id="DateEnd">
-    </div>
+@section('content')
+<div class="container">
+<a href="/schedules/show">< Back to Schedules</a>
 
-        <table class="table text-center">
-            <thead>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-            </thead>
-            <tobdy>
-                @for($hourIndex = 8; $hourIndex <= 16;$hourIndex++)
-                <tr>
-                @for($dayIndex = 0;$dayIndex <5;$dayIndex++)
-                    <td data-dayIndex="{{$dayIndex}}" data-hour="{{$hourIndex}}" class="timeslot timeslotUnavailable" onmouseup="timeslotCell_MouseUp(this)">
-                        {{$hourIndex . ":00 - " . ($hourIndex +1) . ":00"}}
-                    </td>
-                    @endfor
-                </tr>
+    <h1>Update Schedule</h1>
+
+<p>Please specify a Monday for the schedule to start on, a Friday for the schedule to end on, and the hours you are available for each day.</p>
+
+        <div class="d-flex">
+            <div class="form-group">
+                    <label>Start Date</label>
+                        <input type="date" min="{{date('Y-m-d')}}" value="{{date('Y-m-d')}}" id="DateStart">
+            </div>
+            <div class="form-group ml-2">
+                    <label>End Date</label>
+                    <input type="date" min="{{date('Y-m-d')}}" value="{{date('Y-m-d')}}" id="DateEnd">
+                
+            </div>
+        </div>
+
+    <table class="table text-center">
+        <thead>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+        </thead>
+        <tbody>
+            @for($hourIndex = 8; $hourIndex <=16;$hourIndex++) 
+            <tr>
+                @for($dayIndex = 0;$dayIndex <5;$dayIndex++) 
+                <td data-dayIndex="{{$dayIndex}}" data-hour="{{$hourIndex}}" class="timeslot" style="border:none!important" onmouseup="timeslotCell_MouseUp(this)">
+                    <input type="checkbox" class="timeCheckbox">
+                    {{$hourIndex . ":00 - " . ($hourIndex +1) . ":00"}}
+                </td>
                 @endfor
-
-            </tobdy>
-        </table>
+            </tr>
+            @endfor
+        </tbody>
+    </table>
 
     <form method="post" action="/schedules/update">
         <input type="hidden" name="id" id="txtID" value="{{$schedule->id}}">
@@ -54,8 +56,5 @@
         <input type="submit" onclick="Submit_Clicked();" class="btn btn-primary float-right">
 
     </form>
-    </div>
-    
-</body>
-
-</html>
+</div>
+@endsection

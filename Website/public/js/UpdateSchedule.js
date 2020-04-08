@@ -11,13 +11,12 @@ function BuildScheduleString(Schedule) {
 }
 
 function SwapState(Cell) {
-    if ($(Cell).hasClass("timeslotUnavailable")) {
-        $(Cell).removeClass("timeslotUnavailable");
-        $(Cell).addClass("timeslotAvailable");
+    if($(Cell).children("input").prop("checked") == true){
+        $(Cell).children("input").prop("checked",false);
     }
-    else {
-        $(Cell).addClass("timeslotUnavailable");
-        $(Cell).removeClass("timeslotAvailable");
+    else{
+        $(Cell).children("input").prop("checked",true);
+
     }
 }
 
@@ -25,9 +24,12 @@ function Submit_Clicked() {
     var payload = {};
     var schedule = [[], [], [], [], []];
 
-    $(".timeslotAvailable").each(function (index, cell) {
-        var dayIndex = $(cell).attr("data-dayIndex");
-        var hour = $(cell).attr("data-hour");
+    $(".timeCheckbox").each(function (index, cell) {
+if($(cell).prop("checked") == false)
+return;
+
+        var dayIndex = $(cell).parent().attr("data-dayIndex");
+        var hour = $(cell).parent().attr("data-hour");
         schedule[dayIndex].push(hour);
     });
     var scheduleString = BuildScheduleString(schedule);
