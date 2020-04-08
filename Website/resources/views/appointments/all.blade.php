@@ -23,8 +23,14 @@
                     <td>{{$appointment->time}}</td>
                     <td><a href='/counsellors/show?id={{$appointment->counsellor->id}}'>{{$appointment->counsellor->name}}</a></td>
                     <td>
-                        {{-- <button type="button" class="btn btn-small btn-primary mr-2">Change</button> --}}
-                        <form action="/appointments/delete/{{$appointment->id}}" method="POST">
+                        <form action="/appointments/edit">
+                            
+                            <input name="appointment_idU" type="hidden" value='{{$appointment->id}}'>
+                            {{--<input name="_method" type="hidden" value="PATCH">--}}
+                            <button type="submit" class="btn btn-small btn-primary">Change</button>
+                        </form>
+
+                        <form action="/appointments/delete" method="POST">
                             @csrf
                             <input name="appointment_id" type="hidden" value='{{$appointment->id}}'>
                             <input name="_method" type="hidden" value="DELETE">
