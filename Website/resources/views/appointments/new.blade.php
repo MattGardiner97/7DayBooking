@@ -7,9 +7,6 @@
 
 
 @section('content')
-@foreach($errors->all() as $error)
-<div>{{$error}}</div>
-@endforeach
 
 <div class="container">
     @if(!$counsellors->isEmpty())
