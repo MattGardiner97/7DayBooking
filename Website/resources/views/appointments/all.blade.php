@@ -21,7 +21,7 @@
                 <tr>
                     <th scope="row">{{$appointment->date}}</th>
                     <td>{{$appointment->time}}</td>
-                    <td><a href='/counsellor/show?id={{$appointment->counsellor->id}}'>{{$appointment->counsellor->name}}</a></td>
+                    <td><a href='/counsellors/show?id={{$appointment->counsellor->id}}'>{{$appointment->counsellor->name}}</a></td>
                     <td>
                         {{-- <button type="button" class="btn btn-small btn-primary mr-2">Change</button> --}}
                         <form action="/appointments/delete/{{$appointment->id}}" method="POST">

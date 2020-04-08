@@ -18,7 +18,7 @@ class BiographysController extends Controller
     public function create()
     {
         $psychologists = User::where('role', 'Counsellor')->get();
-        return view('psychologists.new' )->with('counseller', $psychologists);
+        return view('counsellors.new' )->with('counseller', $psychologists);
 
     }
 
@@ -30,11 +30,11 @@ class BiographysController extends Controller
         $counseller = User::where('id',$counsellerId)->first();
         //echo $counseller;//->name;
         //echo $bio;
-        return view ('psychologists.view', ['counseller'=>$counseller ]);
+        return view ('counsellors.view', ['counseller'=>$counseller ]);
     }
 
     public function show_2(User $user)
     {
-        return view('psychologists.view')->with('counsellor', $user);
+        return view('counsellors.view')->with('counsellor', $user);
     }
 }
