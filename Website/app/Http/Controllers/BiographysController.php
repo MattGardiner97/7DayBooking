@@ -14,11 +14,11 @@ class BiographysController extends Controller
         $this->middleware("roles:Counsellor")->except('show');
     }
 
-    //allows a psychologist to create their new biography section
+    //allows a psychologist to create/edit their new biography section
     public function create()
     {
         $psychologists = User::where('role', 'Counsellor')->get();
-        return view('psychologists.new' )->with('psychologists', $psychologists);
+        return view('psychologists.new' )->with('counseller', $psychologists);
 
     }
 
@@ -26,16 +26,15 @@ class BiographysController extends Controller
     public function show(Request $request)
     {
         $counsellerId = $request->query("id");
-        //echo $counsellerId;
-        $bio = Biography::where('psychologist_id', $counsellerId)->first();
+      
         $counseller = User::where('id',$counsellerId)->first();
         //echo $counseller;//->name;
         //echo $bio;
-        return view ('psychologists.view',[ 'counseller' => $counseller, 'bio' => $bio] );
+        return view ('psychologists.view', ['counseller'=>$counseller ]);
     }
 
     public function show_2(User $user)
     {
-        return view('psychologists.view')->with('counsellor', $user)->with('bio', $user->bio);
+        return view('psychologists.view')->with('counsellor', $user);
     }
 }

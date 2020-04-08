@@ -38,7 +38,7 @@ Route::get("/appointments/getavailabletimeslots","AppointmentsController@GetAvai
 
 //counsellor bio info
 Route::get('/psychologists/show', 'BiographysController@show');
-
+Route::get('/psychologists/new', 'BiographysController@create');
 Route::get('/psychologists/show/{user}', 'BiographysController@show_2');
 
 //User routes
