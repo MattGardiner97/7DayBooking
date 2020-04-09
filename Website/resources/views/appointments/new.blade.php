@@ -6,9 +6,22 @@
 @endsection
 
 
+
 @section('content')
 
+
+
 <div class="container">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     @if(!$counsellors->isEmpty())
     <form action="/appointments" method="POST">
         <input name="client_id" type="hidden" value="{{auth()->user()->id}}" />

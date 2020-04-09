@@ -48,8 +48,17 @@ class AppointmentsController extends Controller
     }
 
     // Store the appointment to database
-    public function store(Appointment $appointment)
+    public function store(Request $request)
     {
+        $existingAppointments = Appointment::where([
+            ["counsellor_id","=", $request->input("counsellor_id")],
+            ["date","=",$request->input("date")],
+            ["time","=",$request->input("time")]
+        ])->get();
+        if($existingAppointments->count() != 0){
+            return $this->create()->withErrors(["existing_appointment" => "An appointment already exists for this timeslot."]);
+        }
+
         $appointment = Appointment::create($this->validateRequest());
 
         return redirect('/');
