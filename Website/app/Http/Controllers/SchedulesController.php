@@ -25,7 +25,7 @@ class SchedulesController extends Controller
 
     //Displays new schedule page
     public function New(Request $request) {
-        return view("schedules.new");
+        return view("Schedules.new");
     }
 
     //Creates a new schedule
@@ -45,7 +45,7 @@ class SchedulesController extends Controller
     {
         $id = $request->input("id");
         $result = Schedule::where("id", $id)->first();
-        return view("schedules/update", ["schedule" => $result]);
+        return view("Schedules.update", ["schedule" => $result]);
     }
 
     //The post action for updating a schedule
