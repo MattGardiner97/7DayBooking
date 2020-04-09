@@ -33,8 +33,9 @@ Route::get('/appointments/new', 'AppointmentsController@create');
 Route::post('/appointments', 'AppointmentsController@store');
 Route::get('/appointments/show', 'AppointmentsController@show_all');
 Route::get('/appointments/showcounsellor', 'AppointmentsController@show_allCounsellor');
-Route::delete('appointments/delete/{appointments}', 'AppointmentsController@destroy');
-//Route::get('/appointments/delete', 'AppointmentsController@destroy');
+Route::delete('/appointments/delete', 'AppointmentsController@destroy');
+Route::get('/appointments/edit', 'AppointmentsController@edit');
+Route::patch('/appointments/update', 'AppointmentsController@update');
 Route::get("/appointments/getavailabletimeslots","AppointmentsController@GetAvailableTimeslots");
 
 //counsellor bio info
