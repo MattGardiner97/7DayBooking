@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Enter Date</label>
-                    <input type="date" name="date" class="form-control" id="dateSelect" onchange="appointmentDate_changed(this)">
+                    <input type="date" name="date" class="form-control" id="dateSelect">
                 </div>
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Select Time</label>
