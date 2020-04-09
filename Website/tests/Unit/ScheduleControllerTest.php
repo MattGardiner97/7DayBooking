@@ -48,9 +48,18 @@ class ScheduleControllerTest extends TestCase
     {
 
         $user = $this->CreateCounsellor();
-        $response = $this->actingAs($user)->get("/schedules/create");
+        $response = $this->actingAs($user)->post("/schedules/create",[
+            "startDate" => "2020-4-8",
+            "endDate" => "2021-4-8"
+        ]);
         $response->assertStatus(302);
 
+    }
+
+    public function test_New(){
+        $user = $this->CreateCounsellor();
+        $response = $this->actingAs($user)->get("/schedules/new");
+        $response->assertOk();
     }
 
     public function test_UpdateGet()
