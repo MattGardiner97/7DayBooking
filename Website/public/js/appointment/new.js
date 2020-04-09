@@ -12,6 +12,7 @@ function appointmentDate_changed(sender){
     $.getJSON(url,function(result){
 
         $("#selectTime").removeAttr("disabled");
+        $("#selectTime").empty();
         $("#timeError").addClass("d-none");
 
        Object.keys(result).forEach(function(item){
