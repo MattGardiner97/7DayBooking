@@ -23,10 +23,9 @@
                     <td>{{$appointment->time}}</td>
                     <td><a href='/counsellors/show?id={{$appointment->counsellor->id}}'>{{$appointment->counsellor->name}}</a></td>
                     <td>
-                        <form action="/appointments/edit">
-                            
-                            <input name="appointment_idU" type="hidden" value='{{$appointment->id}}'>
-                            {{--<input name="_method" type="hidden" value="PATCH">--}}
+                        <form action="/appointments/edit" method="PATCH">
+                            @csrf
+                            <input name="appointment_id" type="hidden" value='{{$appointment->id}}'>
                             <button type="submit" class="btn btn-small btn-primary">Change</button>
                         </form>
 

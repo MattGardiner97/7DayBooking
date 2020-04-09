@@ -59,7 +59,6 @@ class AppointmentsController extends Controller
     public function destroy(Request $request)
     {
         $appointment = Appointment::where('id', $request->input('appointment_id'))->delete();
-
         return redirect('/appointments/show');
     }
 
@@ -68,15 +67,14 @@ class AppointmentsController extends Controller
     {
         //find details in DB
         $counsellors = User::where('role', 'Counsellor')->get();
-        $appointment = Appointment::find($request -> input('appointment_idU'));
-        return view('appointments.edit') -> with('appointments', $appointment);
-
+        $appointment = Appointment::find($request -> input('appointment_id'));
 
         //Return view and pass information
+        return view('appointments.edit') -> with(compact('appointment', 'counsellors'));
     }
 
     //Update existing appointment
-    public function update(Request $request)
+    public function update(Appointment $appointment)
     {/*
         $appointment = Appointment::where('id', $request->input('appointment_idU'))->get();
         $id = $request -> input('appointment_idU');
@@ -85,6 +83,7 @@ class AppointmentsController extends Controller
         //echo $appointment;
         echo Appointment::model($appointment, array('route' => array('user.update', $appointment->$id)));
         */
+        echo "This is the update()";
     }
 
     //Gets available timeslots for a given counsellor and date
