@@ -69,9 +69,10 @@ class AppointmentsController extends Controller
     }
 
     // Delete the appointment from database
-    public function destroy(Request $request)
+    public function destroy(Appointment $appointment)
     {
-        $appointment = Appointment::where('id', $request->input('appointment_id'))->delete();
+        $appointment->delete();
+        
         return redirect('/appointments/show');
     }
 
