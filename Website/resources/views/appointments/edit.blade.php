@@ -19,7 +19,7 @@
 
     @if(!$counsellors->isEmpty())
     <form action="/appointments/{{$appointment->id}}" method="POST">
-        <input name="_method" type="hidden" value="PATCH">
+        @method('PATCH')
         <input name="client_id" type="hidden" value="{{auth()->user()->id}}" />
         <input name="appointment_id" type="hidden" value="{{$appointment->id}}" />
         <div class="col-sm-12 center-block text-center mt-5">
