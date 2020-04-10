@@ -37,7 +37,7 @@
         </div>
 
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/appointments/showcounsellor" class="btn btn-primary btn-block"> View Appointments</a>
+            <a href="/appointments/show" class="btn btn-primary btn-block"> View Appointments</a>
         </div>
     </div>
     @break

@@ -22,7 +22,7 @@ class UsersController extends Controller
     {
         // check the user the person wants to view is a counsellor
         if($user->role == 'Counsellor') {
-            return view('counsellors.view',['counseller'=>$counseller ]);
+            return view('counsellors.view')->with('counsellor', $user);
         } else {
             return redirect('/');
         }

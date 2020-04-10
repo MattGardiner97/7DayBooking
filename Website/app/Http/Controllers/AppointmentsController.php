@@ -8,6 +8,8 @@ use App\Schedule;
 use App\User;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 //use Illuminate\Support\Facades\Request;
 
 class AppointmentsController extends Controller
@@ -28,23 +30,25 @@ class AppointmentsController extends Controller
     }
 
     // Show the all appointments page
-    public function show_all()
+    public function all()
     {
-        // get the appointments for the user
-        $appointments = Appointment::where('client_id', auth()->user()->id)->get();
-
+        if(Auth::user()->role == 'Client') 
+        {
+            // get the appointments for the client
+            $appointments = Appointment::where('client_id', auth()->user()->id)->get();
+        } 
+        elseif(Auth::user()->role == 'Counsellor') 
+        {
+            // get the appointments for the counsellor
+            $appointments = Appointment::where('counsellor_id', auth()->user()->id)->get();
+        } 
+        else 
+        {
+            $appointemnts = null;
+        }
+        
         // return view
         return view('appointments.all', compact('appointments'));
-    }
-
-    // Show all the appointments for the counseller
-    public function show_allCounsellor()
-    {
-        $appointments = Appointment::where('counsellor_id', auth()->user()->id)->get();
-
-        //return view
-        return view('appointments.allc', compact('appointments'));
-
     }
 
     // Store the appointment to database

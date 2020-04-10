@@ -31,17 +31,17 @@ Route::get("/schedules/delete","SchedulesController@Delete");
 //Appointment routes
 Route::get('/appointments/new', 'AppointmentsController@create');
 Route::post('/appointments', 'AppointmentsController@store');
-Route::get('/appointments/show', 'AppointmentsController@show_all');
-Route::get('/appointments/showcounsellor', 'AppointmentsController@show_allCounsellor');
+Route::get('/appointments/show', 'AppointmentsController@all');
+// Route::get('/appointments/showcounsellor', 'AppointmentsController@show_allCounsellor');
 Route::delete('/appointments/delete', 'AppointmentsController@destroy');
 Route::get('/appointments/edit', 'AppointmentsController@edit');
 Route::patch('/appointments/update', 'AppointmentsController@update');
 Route::get("/appointments/getavailabletimeslots","AppointmentsController@GetAvailableTimeslots");
 
 //counsellor bio info
-Route::get('/counsellors/show', 'BiographysController@show');
-Route::get('/counsellors/new', 'BiographysController@create');
-Route::get('/psychologists/show/{user}', 'BiographysController@show_2');
+// Route::get('/counsellors/show', 'BiographysController@show');
+// Route::get('/counsellors/new', 'BiographysController@create');
+// Route::get('/psychologists/show/{user}', 'BiographysController@show_2');
 
 //User routes
 Route::get('/user/{user}', 'UsersController@show');
