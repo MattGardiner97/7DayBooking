@@ -87,16 +87,15 @@ class AppointmentsController extends Controller
     }
 
     //Update existing appointment
-    public function update(Appointment $appointment)
-    {/*
-        $appointment = Appointment::where('id', $request->input('appointment_idU'))->get();
-        $id = $request -> input('appointment_idU');
-        echo $id . "<br />";
-        echo $appointment;
-        //echo $appointment;
-        echo Appointment::model($appointment, array('route' => array('user.update', $appointment->$id)));
-        */
-        echo "This is the update()";
+    public function update(Request $request)
+    {
+        $appointment = Appointment::find($request -> input('appointment_id'));
+        $appointment->counsellor_id = $request -> input('counsellor_id');
+        $appointment->date = $request -> input('date');
+        $appointment->time = $request -> input('time');
+        $appointment->notes = $request -> input('notes');
+        $appointment->save();
+        return redirect('/appointments/show');
     }
 
     //Gets available timeslots for a given counsellor and date

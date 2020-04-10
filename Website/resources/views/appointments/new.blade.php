@@ -1,15 +1,10 @@
 @extends('layouts.app')
 
-
 @section('scripts')
 <script src="/js/appointment/new.js"></script>
 @endsection
 
-
-
 @section('content')
-
-
 
 <div class="container">
         @if ($errors->any())
