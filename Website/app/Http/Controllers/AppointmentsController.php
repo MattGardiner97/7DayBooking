@@ -77,28 +77,23 @@ class AppointmentsController extends Controller
     }
 
     //Show existing appointment details
-    public function edit(Request $request)
+    public function edit(Appointment $appointment)
     {
         //find details in DB
         $counsellors = User::where('role', 'Counsellor')->get();
-        $appointment = Appointment::find($request -> input('appointment_id'));
 
-        //Return view and pass information
+        //Return view and pass information - appointment passed in by the route
         return view('appointments.edit') -> with(compact('appointment', 'counsellors'));
     }
 
-    //Update existing appointment
-    public function update(Request $request)
+    // Update an existing appointment
+    public function update(Appointment $appointment)
     {
-        $appointment = Appointment::find($request -> input('appointment_id'));
-        $appointment->counsellor_id = $request -> input('counsellor_id');
-        $appointment->date = $request -> input('date');
-        $appointment->time = $request -> input('time');
-        $appointment->notes = $request -> input('notes');
-        $appointment->save();
+        $appointment->update($this->validateRequest());
+
         return redirect('/appointments/show');
     }
-
+    
     //Gets available timeslots for a given counsellor and date
     public function GetAvailableTimeslots(Request $request)
     {

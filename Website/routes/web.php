@@ -28,14 +28,14 @@ Route::post("/schedules/update","SchedulesController@Update_Post");
 Route::post("/schedules/create", "SchedulesController@Create");
 Route::get("/schedules/delete","SchedulesController@Delete");
 
-//Appointment routes
-Route::get('/appointments/new', 'AppointmentsController@create');
+//Appointment routes 
 Route::post('/appointments', 'AppointmentsController@store');
-Route::get('/appointments/show', 'AppointmentsController@all');
-// Route::get('/appointments/showcounsellor', 'AppointmentsController@show_allCounsellor');
 Route::delete('appointments/{appointment}', 'AppointmentsController@destroy');
-Route::get('/appointments/edit', 'AppointmentsController@edit');
-Route::patch('/appointments/update', 'AppointmentsController@update');
+Route::patch('/appointments/{appointment}', 'AppointmentsController@update');
+
+Route::get('/appointments/new', 'AppointmentsController@create');
+Route::get('/appointments/show', 'AppointmentsController@all');
+Route::get('/appointments/edit/{appointment}', 'AppointmentsController@edit');
 Route::get("/appointments/getavailabletimeslots","AppointmentsController@GetAvailableTimeslots");
 
 //counsellor bio info
