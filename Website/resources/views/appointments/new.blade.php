@@ -7,14 +7,14 @@
 @section('content')
 
 <div class="container">
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 
     @if(!$counsellors->isEmpty())
@@ -32,14 +32,16 @@
                 </div>
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Enter Date</label>
-                    <input type="date" name="date" class="form-control" id="dateSelect" onchange="appointmentDate_changed(this)">
+                    <input type="date" name="date" class="form-control" id="dateSelect"
+                        onchange="appointmentDate_changed(this)">
                 </div>
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Select Time</label>
                     <select class="form-control" name="time" id="selectTime">
                         
                     </select>
-                    <div class="text-danger d-none" id="timeError">There are no appointments available on this date.</div>
+                    <div class="text-danger d-none" id="timeError">There are no appointments available on this date.
+                    </div>
                 </div>
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Enter Notes</label>
