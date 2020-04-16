@@ -31,7 +31,7 @@
                     <td>{{$appointment->notes}}</td>
                     <td>
                         {{-- <button type="button" class="btn btn-small btn-primary mr-2">Change</button> --}}
-                        <form action="/appointment/{{$appointment->id}}" method="POST">
+                        <form action="/appointments/{{$appointment->id}}" method="POST">
                             @csrf
                             <input name="_method" type="hidden" value="DELETE">
                             <button type="submit" class="btn btn-small btn-danger">Cancel</button>
@@ -59,19 +59,13 @@
                 <tr>
                     <th scope="row">{{$appointment->date}}</th>
                     <td>{{$appointment->time}}</td>
-                    <td><a
-                            href='/user/{{$appointment->counsellor->id}}'>{{$appointment->counsellor->name}}</a>
+                    <td><a href='/user/{{$appointment->counsellor->id}}'>{{$appointment->counsellor->name}}</a>
                     </td>
                     <td>
-                        <form action="/appointments/edit" method="PATCH">
-                            @csrf
-                            <input name="appointment_id" type="hidden" value='{{$appointment->id}}'>
-                            <button type="submit" class="btn btn-small btn-primary">Change</button>
-                        </form>
+                        <a href="/appointments/edit/{{$appointment->id}}" class="btn btn-small btn-primary mb-2">Change</a>
 
-                        <form action="/appointments/delete" method="POST">
+                        <form action="/appointments/{{$appointment->id}}" method="POST">
                             @csrf
-                            <input name="appointment_id" type="hidden" value='{{$appointment->id}}'>
                             <input name="_method" type="hidden" value="DELETE">
                             <button type="submit" class="btn btn-small btn-danger">Cancel</button>
                         </form>

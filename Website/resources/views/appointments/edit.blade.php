@@ -18,7 +18,7 @@
         </div>
     @endif
     @if(!$counsellors->isEmpty())
-    <form action="/appointments/update" method="POST">
+    <form action="/appointments/{{$appointment->id}}" method="POST">
         @method('PATCH')
         <input name="client_id" type="hidden" value="{{auth()->user()->id}}" />
         <input name="appointment_id" type="hidden" value="{{$appointment->id}}" />
