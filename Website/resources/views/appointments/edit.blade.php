@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
 @section('scripts')
-<script src="/js/appointment/new.js"></script>
+<script src="/js/appointment/edit.js"></script>
 @endsection
 
 @section('content')
 
-<div class="container">
+
+<div class="container" style="float: left; width: 60%; margin-top:-1%">
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -16,7 +17,6 @@
             </ul>
         </div>
     @endif
-
     @if(!$counsellors->isEmpty())
     <form action="/appointments/update" method="POST">
         @method('PATCH')
@@ -32,7 +32,6 @@
                         @endforeach
                     </select>
                 </div>
-
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Enter Date</label>
                     <input type="date" name="date" class="form-control" id="dateSelect" onchange="appointmentDate_changed(this)">
@@ -58,6 +57,13 @@
     @else
     <p>There is an error with the system. Please contact the admin. </p>
     @endif
-
 </div>
+<aside style="float:right; width: 30%; margin-top: 2%">
+    <p>
+        Current counsellor is: {{$counsellor->name}} <br />
+        Current appointment date is : {{$appointment->date}} <br />
+        Current appointment time is: {{$appointment->time}} <br />
+    </p>
+</aside>
+
 @endsection
