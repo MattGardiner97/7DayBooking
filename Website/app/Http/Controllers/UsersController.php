@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -15,7 +16,7 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware("roles:Counsellor")->except('show');
+        //$this->middleware("roles:Counsellor")->except('show');
     }
 
     public function show(User $user)
@@ -64,5 +65,29 @@ class UsersController extends Controller
     public function new()
     {
         return view('');
+    }
+
+    public function profile(User $user)
+    {
+        $user = User::where('id', auth()->user()->id)->first();
+        //echo $user->id;
+
+        return view('users.profile')->with('user', $user);
+    }
+
+    public function update(Request $request)
+    {
+        $user = User::where('id', $request->input('id'))->first();
+
+        if($request->input("password") != null){
+            $user->password = Hash::make($request->input("password"));
+        }
+
+        $user->name = $request->input("name");
+        $user->email = $request->input("email");
+        $user->biography = $request->input("biography");
+        $user->save();
+
+        return view('users.profile')->with('user', $user);
     }
 }

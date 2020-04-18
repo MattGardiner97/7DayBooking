@@ -45,7 +45,7 @@
                 </div>
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Enter Notes</label>
-                    <textarea name="notes" class="form-control"> {{$appointment->notes}} </textarea>
+                    <textarea name="notes" class="form-control">{{$appointment->notes}}</textarea>
                 </div>
                 <div class="form-group">
                     {{--<button class="btn btn-danger my-2 my-sm-0" name="Cancel" value="Cancel">Cancel</button>--}}

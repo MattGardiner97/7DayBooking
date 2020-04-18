@@ -9,6 +9,7 @@ use App\User;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AppointmentsController extends Controller
 {
@@ -55,9 +56,25 @@ class AppointmentsController extends Controller
             // return errors
             return $this->create()->withErrors(["existing_appointment" => "An appointment already exists for this timeslot."]);
         } else {
-            // create appointment - return home page
-            Appointment::create($this->validateRequest());
-            return redirect('/');
+            // create appointment
+            $appointment = Appointment::create($this->validateRequest());
+
+            // send an email 
+            $this->sendEmail(
+                $appointment->client->email,
+                $appointment->client->name,
+                'emails.confirmed',
+                [
+                    'name' => $appointment->client->name,
+                    'date' => $appointment->date,
+                    'time' => $appointment->time,
+                    'counsellor' => $appointment->counsellor->name,
+                ],
+                'Appointment Confirmed'
+            );
+
+            // return confirmed view
+            return view('appointments.confirmed', compact('appointment'));
         }
     }
 
@@ -66,7 +83,21 @@ class AppointmentsController extends Controller
     {
         $appointment->delete();
 
-        return redirect('/appointments/show');
+        // send an email 
+        $this->sendEmail(
+            $appointment->client->email,
+            $appointment->client->name,
+            'emails.cancelled',
+            [
+                'name' => $appointment->client->name,
+                'date' => $appointment->date,
+                'time' => $appointment->time,
+                'counsellor' => $appointment->counsellor->name,
+            ],
+            'Appointment Cancelled'
+        );
+
+        return view('appointments.cancelled', compact('appointment'));
     }
 
     // show existing appointment details
@@ -82,9 +113,24 @@ class AppointmentsController extends Controller
     // update an existing appointment
     public function update(Appointment $appointment)
     {
+        // update the appointment
         $appointment->update($this->validateRequest());
 
-        return redirect('/appointments/show');
+        // send an email 
+        $this->sendEmail(
+            $appointment->client->email,
+            $appointment->client->name,
+            'emails.changed',
+            [
+                'name' => $appointment->client->name,
+                'date' => $appointment->date,
+                'time' => $appointment->time,
+                'counsellor' => $appointment->counsellor->name,
+            ],
+            'Appointment Changed'
+        );
+
+        return view('appointments.changed', compact('appointment'));
     }
 
     // gets available timeslots for a given counsellor and date
@@ -136,5 +182,23 @@ class AppointmentsController extends Controller
             'time' => 'required',
             'notes' => '',
         ]);
+    }
+
+    // send an email - used for appointment confirmed, changed, or cancelled
+
+    /* ----- method parameter requirements -----
+
+        $view -> emails.confirmed, emails.changed, emails.cancelled
+        $data -> name, date, time, counsellor
+
+        ----- end method parameter requirements -----
+    */
+    protected function sendEmail($to_email, $to_name, $view, $data, $subject)
+    {
+        Mail::send($view, $data, function ($message) use ($to_email, $to_name, $subject) {
+            $message->to($to_email, $to_name);
+            $message->subject($subject);
+            $message->from('noreply.7day.bookings@gmail.com', '7Day Psychology Bookings');
+        });
     }
 }
