@@ -8,9 +8,9 @@
         <h2 class="text-warning">Appointment Changed</h2>
         <p>Your appointment has been changed. Here are the new details; </p>
         <br>
-        <p>Date: {{ $appointment->$date }}</p>
-        <p>Time: {{ $appointment->$time }}</p>
-        <p>Counsellor: {{ $appointment->$counsellor }}</p>
+        <p>Date: {{ $appointment->date }}</p>
+        <p>Time: {{ $appointment->time }}</p>
+        <p>Counsellor: {{ $appointment->counsellor->name }}</p>
         
     </div>
 
