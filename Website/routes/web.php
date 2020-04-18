@@ -39,8 +39,12 @@ Route::get("/appointments/getavailabletimeslots","AppointmentsController@GetAvai
 // Route::get('/psychologists/show/{user}', 'BiographysController@show_2');
 
 // User routes
-Route::get('/user/{user}', 'UsersController@show');
-Route::get('/user/new', 'UsersController@new');
+Route::get('/users/{user}', 'UsersController@show');
+Route::post('/users/{user}', 'UsersController@update');
+Route::post('/users/edit/{user}', 'UsersController@update');
+Route::get('/users/edit/{user}','UsersController@edit');
+//Route::post('/users/edit/{user}')
+Route::get('/users/new', 'UsersController@new');
 
 // Authentication Routes
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
