@@ -42,6 +42,9 @@ Route::get("/appointments/getavailabletimeslots","AppointmentsController@GetAvai
 Route::get('/user/{user}', 'UsersController@show');
 Route::get('/user/new', 'UsersController@new');
 
+Route::get('/users/profile', 'UsersController@profile');
+Route::patch('/users/update/{user}', 'UsersController@Update');
+
 // Authentication Routes
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
