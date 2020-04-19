@@ -41,13 +41,10 @@
         </div>
 
         <div class="col-sm-6 center-block text-center mt-5">
-<<<<<<< HEAD
             <a href="/users/profile" class="btn btn-primary btn-block">User Profile</a>
         </div>
-=======
             <a href="/users/{{auth()->user()->id}}" class="btn btn-success btn-block"> View Biography</a>
         </div>       
->>>>>>> c2151d0736e554f593992cc876cc2aa961a1b307
     </div>
     @break
 
