@@ -40,7 +40,6 @@ Route::get("/appointments/getavailabletimeslots","AppointmentsController@GetAvai
 
 // User routes
 Route::get('/users/{user}', 'UsersController@show');
-Route::post('/users/{user}', 'UsersController@update');
 Route::post('/users/edit/{user}', 'UsersController@update');
 Route::get('/users/edit/{user}','UsersController@edit');
 //Route::post('/users/edit/{user}')

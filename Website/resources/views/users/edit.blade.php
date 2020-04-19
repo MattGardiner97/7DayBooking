@@ -4,8 +4,9 @@
 
 <div class="container">
     @if (auth()->user()->id == $counsellor->id)
-This page is intended for you to fill in (or update) your professional profile and contact information
- to help match potential clients with your specific skillsets. 
+    <div class="row">
+    This page is intended for you to fill in (or update) your professional profile and contact information
+    to help match potential clients with your specific skillsets. 
     <form action="/users/edit/" method="post">
         <input type='hidden' name='id' value='{{$counsellor->id}}'>
         <table>
@@ -21,7 +22,8 @@ This page is intended for you to fill in (or update) your professional profile a
             <button type="submit" class="btn btn-small btn-danger">Update</button>
     </form>
     @else
-    <p>An error has occured please go <a href='javascript:history.go(-1);'>back</a></p>
+    An error has occured please go <a href='javascript:history.go(-1);'>back</a>
+    </div>
     @endif
 </div>
 
