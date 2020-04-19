@@ -21,12 +21,21 @@
             <label><span class="fa fa-info-circle" data-placement="top"></span>Password</label>
             <input type="password" class="form-control" name="password" id="password">
         </div>
+<<<<<<< HEAD
 
+=======
+        @if (auth()->user()->role == "Counsellor")
+>>>>>>> c2151d0736e554f593992cc876cc2aa961a1b307
         <div class="form-group">
             <label><span class="fa fa-info-circle" data-placement="top"></span>Biography</label>
             <textarea class="form-control" name="biography" id="biography">{{$user->biography}}</textarea>
         </div>
+<<<<<<< HEAD
 
+=======
+        
+        @endif
+>>>>>>> c2151d0736e554f593992cc876cc2aa961a1b307
         <div class="form-group">
             {{--<button class="btn btn-danger my-2 my-sm-0" name="Cancel" value="Cancel">Cancel</button>--}}
             <button class="btn btn-success my-2 my-sm-0" type="Save" name="Save" value="Submit">Save</button>
