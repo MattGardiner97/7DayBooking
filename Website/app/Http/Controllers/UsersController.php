@@ -37,7 +37,6 @@ class UsersController extends Controller
     public function profile(User $user)
     {
         $user = User::where('id', auth()->user()->id)->first();
-        //echo $user->id;
 
         return view('users.profile')->with('user', $user);
     }

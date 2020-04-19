@@ -39,6 +39,10 @@
         <div class="col-sm-6 center-block text-center mt-5">
             <a href="/appointments/show" class="btn btn-primary btn-block"> View Appointments</a>
         </div>
+
+        <div class="col-sm-6 center-block text-center mt-5">
+            <a href="/users/profile" class="btn btn-primary btn-block">User Profile</a>
+        </div>
     </div>
     @break
 
