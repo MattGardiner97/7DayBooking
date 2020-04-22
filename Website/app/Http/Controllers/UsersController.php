@@ -42,26 +42,6 @@ class UsersController extends Controller
         return view('users.edit')->with('counsellor', $user);
     }
 
-    //for updating a users details
-    public function update( Request $request)
-    {
-
-        
-        if (User::where('id', auth()->user()->id)->exists()){
-            $loggedUser = User::where('id', auth()->user()->id)->first();
-            //do error checking if User logged in Id matches User id of person browing
-            //if same, then allow the person to update the details. This is added protection in case
-            //of injection attacks.
-            
-            if ($loggedUser->id == $request->input('id')) {
-                $loggedUser->biography = $request->input('biography');
-                $loggedUser->save();
-                //log message?
-            }
-            return redirect('/');
-        }
-        
-    }
     public function new()
     {
         return view('');
