@@ -43,8 +43,7 @@
         <div class="col-sm-6 center-block text-center mt-5">
             <a href="/users/profile" class="btn btn-primary btn-block">User Profile</a>
         </div>
-            <a href="/users/{{auth()->user()->id}}" class="btn btn-success btn-block"> View Biography</a>
-        </div>       
+            
     </div>
     @break
 

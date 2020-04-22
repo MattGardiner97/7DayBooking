@@ -32,8 +32,7 @@ class UsersController extends Controller
     //build all counsellors list.
     public function showAllCounsellors()
     {
-        $counsellors = User::where('role', 'Counsellor')->get();
-
+        $counsellors = User::where('role', 'Counsellor')-select("id", "name")->get();
         return view('users.list')->with('counsellors', $counsellors);
     }
 
