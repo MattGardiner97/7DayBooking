@@ -37,7 +37,7 @@ class AppointmentsController extends Controller
             // get the appointments for the counsellor
             $appointments = Appointment::where('counsellor_id', auth()->user()->id)->get();
         } else {
-            $appointemnts = null;
+            $appointments = null;
         }
 
         // return view
