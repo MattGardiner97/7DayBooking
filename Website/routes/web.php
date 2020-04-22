@@ -39,7 +39,7 @@ Route::get("/appointments/getavailabletimeslots","AppointmentsController@GetAvai
 // Route::get('/psychologists/show/{user}', 'BiographysController@show_2');
 
 // User routes
-Route::get('/users/{user}', 'UsersController@show');
+Route::get('/users/show/{user}', 'UsersController@show');
 Route::post('/users/edit/{user}', 'UsersController@update');
 Route::get('/users/edit/{user}','UsersController@edit');
 //Route::post('/users/edit/{user}')
