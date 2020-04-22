@@ -3,6 +3,9 @@
 @section('content')
 
 <div class="container">
+    @if (!empty($record))
+        <div>Record successfully updated.</div>
+    @endif
     @if (auth()->user()->id == $user->id)
     <form action="/users/update/{{$user->id}}" method="POST">
         @method('PATCH')

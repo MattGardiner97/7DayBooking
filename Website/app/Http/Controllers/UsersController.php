@@ -23,12 +23,18 @@ class UsersController extends Controller
     {
         return view('users.view')->with('counsellor', $user);   
     }
+
+    public function searchBy()
+    {
+        return view('users.search');
+    }
     //build a list of counsellors with matches in biography field for specialization?
     //not guaranteed to work outside keywords because could match rubbish/useless results like 'AND' or
     //other common use words
-    public function searchBy(Request $request)
+    public function searchByResults(Request $request)
     {
-        $searchTerm = $request->input('search');
+        //$searchTerm = $request->input('search');
+        $searchTerm = '%' . trim($request->input('search')) . '%';
         $counsellors = User::where('role', 'Counsellor')
                             ->where('verified', '=', '1')
                             ->where( 'biography', 'LIKE', $searchTerm)
@@ -65,6 +71,7 @@ class UsersController extends Controller
 
     public function update(Request $request)
     {
+        $record = false;
         $user = User::where('id', $request->input('id'))->first();
         if (!empty($user)){
             if($request->input("password") != null){
@@ -75,8 +82,10 @@ class UsersController extends Controller
             $user->email = $request->input("email");
             if (auth()->user()->id == $request->input('id'))
                 $user->biography = $request->input("biography");
-            $user->save();
+            
+            if ($user->save())
+                $record = true;
         }
-        return view('users.profile')->with('user', $user);
+        return view('users.profile')->with('user', $user)->with('record', $record);
     }
 }

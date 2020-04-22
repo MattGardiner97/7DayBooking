@@ -5,7 +5,7 @@
 <div class="container">
     
     <div class="row">
-    Please view our Counsellor's to find a match for your requirements.<br/> 
+    Please view our Counsellor's to find a match for your requirements. Or&nbsp;<a button type="button" class="btn btn-primary btn-sm" href='/users/search'>Search</a><br> 
     @if (!empty($counsellors))
     <table class="table table-hover">
         <thead>
