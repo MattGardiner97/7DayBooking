@@ -40,11 +40,11 @@ Route::get("/appointments/getavailabletimeslots","AppointmentsController@GetAvai
 
 // User routes
 Route::get('/users/show/{user}', 'UsersController@show');
-Route::post('/users/edit/{user}', 'UsersController@update');
-Route::get('/users/edit/{user}','UsersController@edit');
+//Route::post('/users/edit/{user}', 'UsersController@update');
+//Route::get('/users/edit/{user}','UsersController@edit');
 //Route::post('/users/edit/{user}')
 Route::get('/users/new', 'UsersController@new');
-
+Route::get('users/list', 'UsersController@showAllCounsellors');
 Route::get('/users/profile', 'UsersController@profile');
 Route::patch('/users/update/{user}', 'UsersController@Update');
 

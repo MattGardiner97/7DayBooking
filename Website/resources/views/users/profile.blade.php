@@ -3,6 +3,7 @@
 @section('content')
 
 <div class="container">
+    @if (auth()->user()->id == $user->id)
     <form action="/users/update/{{$user->id}}" method="POST">
         @method('PATCH')
         <input name="id" type="hidden" value="{{auth()->user()->id}}" />
@@ -34,6 +35,9 @@
             <button class="btn btn-success my-2 my-sm-0" type="Save" name="Save" value="Submit">Save</button>
         </div>  
     </form>
+    @else
+    <div>Test</div>
+    @endif
 </div>
 
 @endsection

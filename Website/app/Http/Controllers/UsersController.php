@@ -21,18 +21,28 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        // check the user the person wants to view is a counsellor
-        if($user->role == 'Counsellor') {
-            return view('users.view')->with('counsellor', $user);
-        } else {
-            return redirect('/');
-        }
+        return view('users.view')->with('counsellor', $user);   
+    }
+    //build a list of counsellors with matches in biography field for specialization?
+    //not guaranteed to work outside keywords because could match rubbish/useless results like 'AND' or
+    //other common use words
+    public function searchBy(Request $request)
+    {
+        $searchTerm = $request->input('search');
+        $counsellors = User::where('role', 'Counsellor')
+                            ->where('verified', '=', '1')
+                            ->where( 'biography', 'LIKE', $searchTerm)
+                            ->select('id', 'name', 'email')
+                            ->get();
+        return view('users.list')->with('counsellors', $counsellors);
     }
 
     //build all counsellors list.
     public function showAllCounsellors()
     {
-        $counsellors = User::where('role', 'Counsellor')-select("id", "name")->get();
+        $counsellors = User::where('role', 'Counsellor')
+                            ->where('verified', '=', '1')
+                            ->select("id", "name", "email")->get();
         return view('users.list')->with('counsellors', $counsellors);
     }
 
@@ -56,16 +66,17 @@ class UsersController extends Controller
     public function update(Request $request)
     {
         $user = User::where('id', $request->input('id'))->first();
+        if (!empty($user)){
+            if($request->input("password") != null){
+                $user->password = Hash::make($request->input("password"));
+            }
 
-        if($request->input("password") != null){
-            $user->password = Hash::make($request->input("password"));
+            $user->name = $request->input("name");
+            $user->email = $request->input("email");
+            if (auth()->user()->id == $request->input('id'))
+                $user->biography = $request->input("biography");
+            $user->save();
         }
-
-        $user->name = $request->input("name");
-        $user->email = $request->input("email");
-        $user->biography = $request->input("biography");
-        $user->save();
-
         return view('users.profile')->with('user', $user);
     }
 }
