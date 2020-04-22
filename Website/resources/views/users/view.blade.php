@@ -4,7 +4,7 @@
 
 <div class="container">
 
-    <div class="col-sm-12 center-block text-center">
+    <div class="col-sm-12 center-block text-left">
         
         <h2>{{$counsellor->name ?? ''}}</h2>
         <br>

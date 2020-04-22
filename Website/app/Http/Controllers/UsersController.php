@@ -29,12 +29,12 @@ class UsersController extends Controller
         return view('users.search');
     }
     //build a list of counsellors with matches in biography field for specialization?
-    //not guaranteed to work outside keywords because could match rubbish/useless results like 'AND' or
+    //not guaranteed to work outside a keywords field because could match rubbish/useless results like 'AND' or
     //other common use words
     public function searchByResults(Request $request)
     {
-        //$searchTerm = $request->input('search');
-        $searchTerm = '%' . trim($request->input('search')) . '%';
+        //concatenate wildcards to string as it doesn't appear that laravel does this automatically
+        $searchTerm = '%' . trim($request->input('search')) . '%'; //can't be safe? sql injection?
         $counsellors = User::where('role', 'Counsellor')
                             ->where('verified', '=', '1')
                             ->where( 'biography', 'LIKE', $searchTerm)
