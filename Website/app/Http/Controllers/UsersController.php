@@ -37,7 +37,6 @@ class UsersController extends Controller
         //concatenate wildcards to string as it doesn't appear that laravel does this automatically
         $searchTerm = '%' . trim($request->input('search')) . '%'; //can't be safe? sql injection?
         $counsellors = User::where('role', 'Counsellor')
-                            ->where('verified', '=', '1')
                             ->where( 'biography', 'LIKE', $searchTerm)
                             ->select('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
                             ->get();
@@ -49,7 +48,6 @@ class UsersController extends Controller
     public function showAllCounsellors()
     {
         $counsellors = User::where('role','Counsellor')
-                            ->where('verified', '=', '1') 
                             ->select('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
                             ->get();
         /*$counsellors = User::where('role', 'Counsellor')
