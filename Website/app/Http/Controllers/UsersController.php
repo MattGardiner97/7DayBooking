@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
@@ -38,17 +39,22 @@ class UsersController extends Controller
         $counsellors = User::where('role', 'Counsellor')
                             ->where('verified', '=', '1')
                             ->where( 'biography', 'LIKE', $searchTerm)
-                            ->select('id', 'name', 'email')
+                            ->select('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
                             ->get();
         return view('users.list')->with('counsellors', $counsellors);
     }
 
     //build all counsellors list.
+    
     public function showAllCounsellors()
     {
-        $counsellors = User::where('role', 'Counsellor')
+        $counsellors = User::where('role','Counsellor')
+                            ->where('verified', '=', '1') 
+                            ->select('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
+                            ->get();
+        /*$counsellors = User::where('role', 'Counsellor')
                             ->where('verified', '=', '1')
-                            ->select("id", "name", "email")->get();
+                            ->select("id", "name", "email")->get();*/
         return view('users.list')->with('counsellors', $counsellors);
     }
 
@@ -71,7 +77,7 @@ class UsersController extends Controller
 
     public function update(Request $request)
     {
-        $record = false;
+        $success = false;
         $user = User::where('id', $request->input('id'))->first();
         if (!empty($user)){
             if($request->input("password") != null){
@@ -84,8 +90,8 @@ class UsersController extends Controller
                 $user->biography = $request->input("biography");
             
             if ($user->save())
-                $record = true;
+                $success = true;
         }
-        return view('users.profile')->with('user', $user)->with('record', $record);
+        return view('users.profile')->with('user', $user)->with('success', $success);
     }
 }

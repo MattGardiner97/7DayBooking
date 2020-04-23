@@ -11,12 +11,14 @@
         <thead>
             <td>Name</td>
             <td>Email</td>
+            <td>Biography(short)</td>
         </thead>
         <tbody>
         @foreach ($counsellors as $counsellor )
         <tr>
             <td><a href='/users/show/{{$counsellor->id}}'>{{$counsellor->name}}</a></td>
             <td>{{$counsellor->email}}</td>
+            <td>{{$counsellor->biography}}</td>
         </tr>
         @endforeach
         </tbody>

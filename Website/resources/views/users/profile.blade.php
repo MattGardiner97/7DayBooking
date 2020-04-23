@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-    @if (!empty($record))
+    @if (!empty($success))
         <div>Record successfully updated.</div>
     @endif
     @if (auth()->user()->id == $user->id)
