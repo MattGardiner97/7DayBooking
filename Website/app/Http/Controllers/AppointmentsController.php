@@ -24,7 +24,7 @@ class AppointmentsController extends Controller
         $counsellors = User::where('role', 'Counsellor')->get();
 
         // return $counsellors;
-        return view("appointments.new", ['counsellors' => $counsellors, "appointment" => null]);
+        return view("appointments.edit", ['counsellors' => $counsellors, "appointment" => null]);
     }
 
     // Show the all appointments page
@@ -132,29 +132,6 @@ class AppointmentsController extends Controller
         return view('appointments.edit')->with(compact('appointment', 'counsellors'));
     }
 
-    // update an existing appointment
-    public function update(Appointment $appointment)
-    {
-        // update the appointment
-        $appointment->update($this->validateRequest());
-
-        // send an email
-        $this->sendEmail(
-            $appointment->client->email,
-            $appointment->client->name,
-            'emails.changed',
-            [
-                'name' => $appointment->client->name,
-                'date' => $appointment->date,
-                'time' => $appointment->time,
-                'counsellor' => $appointment->counsellor->name,
-            ],
-            'Appointment Changed'
-        );
-
-        return view('appointments.changed', compact('appointment'));
-    }
-
     // gets available timeslots for a given counsellor and date
     public function GetAvailableTimeslots(Request $request)
     {
@@ -207,15 +184,6 @@ class AppointmentsController extends Controller
         ]);
     }
 
-    // send an email - used for appointment confirmed, changed, or cancelled
-
-    /* ----- method parameter requirements -----
-
-    $view -> emails.confirmed, emails.changed, emails.cancelled
-    $data -> name, date, time, counsellor
-
-    ----- end method parameter requirements -----
-     */
     protected function sendEmail($to_email, $to_name, $view, $data, $subject)
     {
         Mail::send($view, $data, function ($message) use ($to_email, $to_name, $subject) {

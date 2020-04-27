@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label><span class="fa fa-info-circle" data-placement="top"></span>Select Time</label>
-                    <select class="form-control" name="time" id="selectTime" data-time="{{$appointment == null ? '' : $appointment->time}}">
+                    <select class="form-control" name="time" id="selectTime" data-time="{{$appointment == null ? '-1' : $appointment->time}}">
                         
                     </select>
                     <div class="text-danger d-none" id="timeError">There are no appointments available on this date.
