@@ -26,17 +26,11 @@ Route::get("/schedules/delete","SchedulesController@Delete");
 // Appointment routes 
 Route::post('/appointments', 'AppointmentsController@store');
 Route::delete('appointments/{appointment}', 'AppointmentsController@destroy');
-Route::patch('/appointments/{appointment}', 'AppointmentsController@update');
-
 Route::get('/appointments/new', 'AppointmentsController@create');
 Route::get('/appointments/show', 'AppointmentsController@all');
 Route::get('/appointments/edit/{appointment}', 'AppointmentsController@edit');
 Route::get("/appointments/getavailabletimeslots","AppointmentsController@GetAvailableTimeslots");
 
-// counsellor bio info
-// Route::get('/counsellors/show', 'BiographysController@show');
-// Route::get('/counsellors/new', 'BiographysController@create');
-// Route::get('/psychologists/show/{user}', 'BiographysController@show_2');
 
 // User routes
 Route::get('/users/show/{user}', 'UsersController@show');
