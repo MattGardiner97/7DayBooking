@@ -24,7 +24,7 @@ class AppointmentsController extends Controller
         $counsellors = User::where('role', 'Counsellor')->get();
 
         // return $counsellors;
-        return view("appointments.new")->with('counsellors', $counsellors);
+        return view("appointments.new", ['counsellors' => $counsellors, "appointment" => null]);
     }
 
     // Show the all appointments page
@@ -51,30 +51,52 @@ class AppointmentsController extends Controller
         if (count(Appointment::where([
             ["counsellor_id", "=", $request->input("counsellor_id")],
             ["date", "=", $request->input("date")],
-            ["time", "=", $request->input("time")]
+            ["time", "=", $request->input("time")],
         ])->get()) != 0) {
             // return errors
             return $this->create()->withErrors(["existing_appointment" => "An appointment already exists for this timeslot."]);
         } else {
-            // create appointment
-            $appointment = Appointment::create($this->validateRequest());
+            if ($request->input("id") == -1) {
+                // create appointment
+                $appointment = Appointment::create($this->validateRequest());
 
-            // send an email 
-            $this->sendEmail(
-                $appointment->client->email,
-                $appointment->client->name,
-                'emails.confirmed',
-                [
-                    'name' => $appointment->client->name,
-                    'date' => $appointment->date,
-                    'time' => $appointment->time,
-                    'counsellor' => $appointment->counsellor->name,
-                ],
-                'Appointment Confirmed'
-            );
+                // send an email
+                $this->sendEmail(
+                    $appointment->client->email,
+                    $appointment->client->name,
+                    'emails.confirmed',
+                    [
+                        'name' => $appointment->client->name,
+                        'date' => $appointment->date,
+                        'time' => $appointment->time,
+                        'counsellor' => $appointment->counsellor->name,
+                    ],
+                    'Appointment Confirmed'
+                );
 
-            // return confirmed view
-            return view('appointments.confirmed', compact('appointment'));
+                return view('appointments.confirmed', compact('appointment'));
+
+            } else {
+// update the appointment
+                $appointment = Appointment::find($this->validateRequest()["id"]);
+                $appointment->update($this->validateRequest());
+
+// send an email
+                $this->sendEmail(
+                    $appointment->client->email,
+                    $appointment->client->name,
+                    'emails.changed',
+                    [
+                        'name' => $appointment->client->name,
+                        'date' => $appointment->date,
+                        'time' => $appointment->time,
+                        'counsellor' => $appointment->counsellor->name,
+                    ],
+                    'Appointment Changed'
+                );
+
+                return view('appointments.changed', compact('appointment'));
+            }
         }
     }
 
@@ -83,7 +105,7 @@ class AppointmentsController extends Controller
     {
         $appointment->delete();
 
-        // send an email 
+        // send an email
         $this->sendEmail(
             $appointment->client->email,
             $appointment->client->name,
@@ -116,7 +138,7 @@ class AppointmentsController extends Controller
         // update the appointment
         $appointment->update($this->validateRequest());
 
-        // send an email 
+        // send an email
         $this->sendEmail(
             $appointment->client->email,
             $appointment->client->name,
@@ -176,6 +198,7 @@ class AppointmentsController extends Controller
     protected function validateRequest()
     {
         return request()->validate([
+            'id' => '',
             'counsellor_id' => 'required',
             'client_id' => 'required',
             'date' => 'required',
@@ -188,11 +211,11 @@ class AppointmentsController extends Controller
 
     /* ----- method parameter requirements -----
 
-        $view -> emails.confirmed, emails.changed, emails.cancelled
-        $data -> name, date, time, counsellor
+    $view -> emails.confirmed, emails.changed, emails.cancelled
+    $data -> name, date, time, counsellor
 
-        ----- end method parameter requirements -----
-    */
+    ----- end method parameter requirements -----
+     */
     protected function sendEmail($to_email, $to_name, $view, $data, $subject)
     {
         Mail::send($view, $data, function ($message) use ($to_email, $to_name, $subject) {
