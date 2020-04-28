@@ -6,7 +6,7 @@
 <p>The new details are as follows, </p>
 <br>
 <p>Date: {{ $date }}</p>
-<p>Time: {{ $time }}</p>
+<p>Time: {{ date('h:i a', strtotime($time . ':00')) }}</p>
 <p>Counsellor: {{ $counsellor }}</p>
 <br>
 <p>If you would like to view or change your appointment, please log into your account.</p>
