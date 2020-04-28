@@ -20,6 +20,7 @@ API Index
                 * [VerificationController](App-Http-Controllers-Auth-VerificationController.md)
             * [Controller](App-Http-Controllers-Controller.md)
             * [HomeController](App-Http-Controllers-HomeController.md)
+            * [SchedulesController](App-Http-Controllers-SchedulesController.md)
             * [UsersController](App-Http-Controllers-UsersController.md)
         * [Kernel](App-Http-Kernel.md)
         * App\Http\Middleware

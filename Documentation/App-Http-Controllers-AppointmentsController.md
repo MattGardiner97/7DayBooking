@@ -141,7 +141,7 @@ Returns an array containing the valid paramaters. If any paramaters fail validat
 
 ### sendEmail
 
-    void App\Http\Controllers\AppointmentsController::sendEmail(string $to_email, $to_name, \App\Http\Controllers\View $view, Array $data, string $subject)
+    void App\Http\Controllers\AppointmentsController::sendEmail(string $to_email, string $to_name, \App\Http\Controllers\View $view, Array $data, string $subject)
 
 Helper function used to send email using the default mail provider.
 
@@ -152,7 +152,7 @@ Helper function used to send email using the default mail provider.
 
 #### Arguments
 * $to_email **string** - &lt;p&gt;The email address of the recipient&lt;/p&gt;
-* $to_name **mixed**
+* $to_name **string** - &lt;p&gt;The name of the recipient&lt;/p&gt;
 * $view **App\Http\Controllers\View** - &lt;p&gt;The blade view to be displayed in the body of the message&lt;/p&gt;
 * $data **Array** - &lt;p&gt;Any data required by the view&lt;/p&gt;
 * $subject **string** - &lt;p&gt;The text to be sent in the subject line of the email&lt;/p&gt;
