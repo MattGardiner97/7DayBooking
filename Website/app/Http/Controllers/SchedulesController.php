@@ -45,7 +45,8 @@ class SchedulesController extends Controller
      * 
      * @return View
      */
-    public function New(Request $request) {
+    public function NewSchedule(Request $request) 
+    {
         return view("Schedules.new");
     }
 
