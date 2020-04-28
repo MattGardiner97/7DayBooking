@@ -13,11 +13,11 @@
     {{-- User is not logged in - can't get role --}}
     <div class="row">
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/register" class="btn btn-primary btn-block">Register</a>
+            <a href="/register" class="btn btn-sm btn-soft-primary btn-block font-weight-normal ml-3 transition-3d-hover">Register</a>
         </div>
 
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/login" class="btn btn-success btn-block">Login</a>
+            <a href="/login" class="btn btn-sm btn-soft-success btn-block font-weight-normal ml-3 transition-3d-hover">Login</a>
         </div>
     </div>
 
@@ -28,26 +28,40 @@
 
     @case('Counsellor')
     <div class="row">
-        <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/schedules/new" class="btn btn-primary btn-block">New Schedule</a>
+
+
+        <div class="mt-10 col-sm-12 center-block text-center">
+            <h2 class="u-divider u-divider--text">Schedule</h2>
         </div>
 
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/schedules/show" class="btn btn-success btn-block">View Schedule</a>
+            <a href="/schedules/new" class="btn btn-sm btn-soft-success btn-block font-weight-normal ml-3 transition-3d-hover"><span class="fas fa-calendar-plus small mr-2"></span>New Schedule</a>
         </div>
 
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/appointments/show" class="btn btn-primary btn-block"> View Appointments</a>
+            <a href="/schedules/show" class="btn btn-sm btn-soft-primary btn-block font-weight-normal ml-3 transition-3d-hover"><span class="fas fa-calendar-alt small mr-2"></span>View Schedule</a>
+        </div>
+
+
+        <div class="mt-10 col-sm-12 center-block text-center">
+            <h2 class="u-divider u-divider--text">Appointments</h2>
+        </div>
+        <div class="col-sm-6 center-block text-center mt-5">
+            <a href="/appointments/show" class="btn btn-sm btn-soft-primary btn-block font-weight-normal ml-3 transition-3d-hover"><span class="fas fa-calendar-check small mr-2"></span> View Appointments</a>
+        </div>
+
+        <div class="mt-10 col-sm-12 center-block text-center">
+            <h2 class="u-divider u-divider--text">Profiles</h2>
         </div>
 
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/users/profile" class="btn btn-primary btn-block">User Profile</a>
+            <a href="/users/profile" class="btn btn-sm btn-soft-success btn-block font-weight-normal ml-3 transition-3d-hover"><span class="fas fa-user-edit small mr-2"></span>Edit User Profile</a>
         </div>
 
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/users/list" class="btn btn-primary btn-block">View Our Counsellors</a>
+            <a href="/users/list" class="btn btn-sm btn-soft-primary btn-block font-weight-normal ml-3 transition-3d-hover"><span class="fas fa-user small mr-2"></span>View Our Counsellors</a>
         </div>
-            
+
     </div>
     @break
 
@@ -59,27 +73,36 @@
             $color = count($users) == 0 ? "lime" : "red";
             @endphp
             <h4>Verification Requests <span style="color:{{$color}}; font-weight:bold">{{count($users)}}</span></h4>
-            <a class="btn btn-primary" href="/admin/verify">View</a>
+            <a class="btn btn-sm btn-soft-primary font-weight-normal ml-3 transition-3d-hover" href="/admin/verify">View</a>
         </div>
     </div>
     @break
 
     @case('Client')
     <div class="row">
-        <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/appointments/new" class="btn btn-success btn-block">New Appointment</a>
+
+        <div class="mt-10 col-sm-12 center-block text-center">
+            <h2 class="u-divider u-divider--text">Appointments</h2>
         </div>
 
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/appointments/show" class="btn btn-danger btn-block">Cancel / Change Appointment</a>
+            <a href="/appointments/new" class="btn btn-sm btn-soft-success btn-block font-weight-normal ml-3 transition-3d-hover"><span class="fas fa-calendar-plus small mr-2"></span> New Appointment</a>
         </div>
-        
+
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/users/profile" class="btn btn-primary btn-block">User Profile</a>
+            <a href="/appointments/show" class="btn btn-sm btn-soft-primary btn-block font-weight-normal ml-3 transition-3d-hover"><span class="fas fa-calendar-day small mr-2"></span> Cancel / Change Appointment</a>
         </div>
- 
+
+        <div class="mt-10 col-sm-12 center-block text-center">
+            <h2 class="u-divider u-divider--text">Profiles</h2>
+        </div>
+
         <div class="col-sm-6 center-block text-center mt-5">
-            <a href="/users/list" class="btn btn-primary btn-block">View Our Counsellors</a>
+            <a href="/users/profile" class="btn btn-sm btn-soft-success btn-block font-weight-normal ml-3 transition-3d-hover"><span class="fas fa-user-edit small mr-2"></span>Edit User Profile</a>
+        </div>
+
+        <div class="col-sm-6 center-block text-center mt-5">
+            <a href="/users/list" class="btn btn-sm btn-soft-primary btn-block font-weight-normal ml-3 transition-3d-hover"><span class="fas fa-user small mr-2"></span>View Our Counsellors</a>
         </div>
 
     </div>

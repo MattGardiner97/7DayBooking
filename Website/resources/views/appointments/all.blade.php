@@ -26,7 +26,7 @@
                 @foreach($appointments as $appointment)
                 <tr>
                     <th scope="row">{{$appointment->date}}</th>
-                    <td>{{$appointment->time}}</td>
+                    <td>{{date('h:i a', strtotime($appointment->time . ':00'))}}</td>
                     <td>{{$appointment->client->name}}</td>
                     <td>{{$appointment->notes}}</td>
                     <td>
@@ -34,7 +34,7 @@
                         <form action="/appointments/{{$appointment->id}}" method="POST">
                             @csrf
                             <input name="_method" type="hidden" value="DELETE">
-                            <button type="submit" class="btn btn-small btn-danger">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-soft-danger">Cancel</button>
                         </form>
                     </td>
                 </tr>
@@ -58,16 +58,16 @@
                 @foreach($appointments as $appointment)
                 <tr>
                     <th scope="row">{{$appointment->date}}</th>
-                    <td>{{$appointment->time}}</td>
+                    <td>{{date('h:i a', strtotime($appointment->time . ':00'))}}</td>
                     <td><a href='/users/{{$appointment->counsellor->id}}'>{{$appointment->counsellor->name}}</a>
                     </td>
                     <td>
-                        <a href="/appointments/edit/{{$appointment->id}}" class="btn btn-small btn-primary mb-2">Change</a>
+                        <a href="/appointments/edit/{{$appointment->id}}" class="btn btn-sm btn-soft-primary mb-2">Change</a>
 
                         <form action="/appointments/{{$appointment->id}}" method="POST">
                             @csrf
                             <input name="_method" type="hidden" value="DELETE">
-                            <button type="submit" class="btn btn-small btn-danger">Cancel</button>
+                            <button type="submit" class="btn btn-sm btn-soft-danger">Cancel</button>
                         </form>
                     </td>
                 </tr>
