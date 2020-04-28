@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/**
+ * Controller used to display the home page.
+ */
 class HomeController extends Controller
 {
     /**

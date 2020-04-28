@@ -7,6 +7,9 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Controller class for performing account management tasks.
+ */
 class UsersController extends Controller
 {
     /**
@@ -20,18 +23,41 @@ class UsersController extends Controller
         //$this->middleware("roles:Counsellor")->except('show');
     }
 
+    /**
+     * GET endpoint for displaying the account management page.
+     * 
+     * Returns the index view populated with the current user.
+     * 
+     * @param User $user The currently logged in user.
+     * 
+     * @return View
+     */
     public function show(User $user)
     {
         return view('users.view')->with('counsellor', $user);   
     }
 
+    /**
+     * GET endpoint for displaying the counsellor search page.
+     * 
+     * @return View
+     */
     public function searchBy()
     {
         return view('users.search');
     }
-    //build a list of counsellors with matches in biography field for specialization?
-    //not guaranteed to work outside a keywords field because could match rubbish/useless results like 'AND' or
-    //other common use words
+
+
+    /**
+     * GET endpoint for performing a keyword search.
+     * 
+     * Searches through all counsellors in the database and returns those whose biographies contain a match for the search term. Returns a view containing all counsellors that 
+     * match the search.
+     * 
+     * @param Request $request HTTP request object containing the search term.
+     * 
+     * @return View.
+     */
     public function searchByResults(Request $request)
     {
         //concatenate wildcards to string as it doesn't appear that laravel does this automatically
@@ -43,8 +69,13 @@ class UsersController extends Controller
         return view('users.list')->with('counsellors', $counsellors);
     }
 
-    //build all counsellors list.
-    
+    /**
+     * GET endpoint for displaying the all counsellors page.
+     * 
+     * Returns a view populated with each counsellor and their details.
+     * 
+     * @return View
+     */
     public function showAllCounsellors()
     {
         $counsellors = User::where('role','Counsellor')
@@ -56,16 +87,27 @@ class UsersController extends Controller
         return view('users.list')->with('counsellors', $counsellors);
     }
 
+    /**
+     * GET endpoint for displaying the edit user page.
+     * 
+     * @param User $user The currently logged-in user.
+     * 
+     * @return View
+     */
     public function edit(User $user)
     {
         return view('users.edit')->with('counsellor', $user);
     }
 
-    public function new()
-    {
-        return view('');
-    }
-
+    /**
+     * GET endpoint for displaying the profile overview page.
+     * 
+     * Returns the main profile view which allows users to edit their details.
+     * 
+     * @param User $user The currently logged-in user.
+     * 
+     * @return View
+     */
     public function profile(User $user)
     {
         $user = User::where('id', auth()->user()->id)->first();
@@ -73,6 +115,15 @@ class UsersController extends Controller
         return view('users.profile')->with('user', $user);
     }
 
+    /**
+     * POST endpoint for updating user details.
+     * 
+     * Updates the user details based on the inputs provided. Redirects to the profile overview page upon completion.
+     * 
+     * @param Request $request HTTP request object containing the user ID, password, name, email, and biograpy paramaters.
+     * 
+     * @return View
+     */
     public function update(Request $request)
     {
         $success = false;

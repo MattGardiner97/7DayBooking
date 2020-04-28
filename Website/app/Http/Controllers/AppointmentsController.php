@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * Controller class for handing appointment related tasks.
+ * 
+ * Provides endpoints for retrieving appointment booking views and creating new appointments.
+ */
 class AppointmentsController extends Controller
 {
     public function __construct()
@@ -18,7 +23,13 @@ class AppointmentsController extends Controller
         $this->middleware("auth");
     }
 
-    // Show the new appointment form
+    /**
+     * GET endpoint for retrieving the new appointment page.
+     * 
+     * Returns the new appointment view populated with all counsellors.
+     * 
+     * @return View
+     */
     public function create()
     {
         $counsellors = User::where('role', 'Counsellor')->get();
@@ -27,7 +38,14 @@ class AppointmentsController extends Controller
         return view("appointments.edit", ['counsellors' => $counsellors, "appointment" => null]);
     }
 
-    // Show the all appointments page
+    /**
+     * GET endpoint for retrieving the all appointments page.
+     * 
+     * Returns a view displaying all appointments for a user. If the user is a client, it displays all appointments made by that client. If the user is a counsellor, 
+     * it displays all appointments for that counsellor.
+     * 
+     * @return View
+     */
     public function all()
     {
         if (Auth::user()->role == 'Client') {
@@ -44,7 +62,16 @@ class AppointmentsController extends Controller
         return view('appointments.all', compact('appointments'));
     }
 
-    // save an appointment to the database
+    /**
+     * POST endpoint for storing a new appointment in the database.
+     * 
+     * This function creates or updates an appointment depending on what data is submitted. If no ID is specified in the request form, a new appointment will be created, 
+     * otherwise the existing appointment will be updated.
+     * 
+     * @param Request $request The framework provided HTTP request.
+     * 
+     * @return void
+     */
     public function store(Request $request)
     {
         // check the appointment does not exist already
@@ -100,7 +127,15 @@ class AppointmentsController extends Controller
         }
     }
 
-    // delete the appointment from database
+    /**
+     * DELETE endpoint for removing an appointment from the database
+     * 
+     * Deletes an existing appointment from the database and sends an email notification to the client notifying them of the cancellation.
+     * 
+     * @param Appointment $appointment Framework-generated model binding representing the appointment to delete.
+     * 
+     * @return void
+     */
     public function destroy(Appointment $appointment)
     {
         $appointment->delete();
@@ -122,7 +157,15 @@ class AppointmentsController extends Controller
         return view('appointments.cancelled', compact('appointment'));
     }
 
-    // show existing appointment details
+    /**
+     * GET endpoint for retrieving the edit appointment page.
+     * 
+     * Returns the edit appointment page populated with the existing appointment and all counsellors.
+     * 
+     * @param Appointment $appointment Framework-generated model binding representing the appointment to edit.
+     * 
+     * @return void
+     */
     public function edit(Appointment $appointment)
     {
         // find details in DB
@@ -132,7 +175,16 @@ class AppointmentsController extends Controller
         return view('appointments.edit')->with(compact('appointment', 'counsellors'));
     }
 
-    // gets available timeslots for a given counsellor and date
+    /**
+     * GET endpoint for retrieving available timeslots for a specified counsellor and date.
+     * 
+     * Returns a JSON encoded array of integers representing available appointment times for a given day and time. Returns an empty response if there are no times available. 
+     * Designed to be consumed by an AJAX request.
+     * 
+     * @param Request $request HTTP request containing the counsellor ID and date to search for.
+     * 
+     * @return Array
+     */
     public function GetAvailableTimeslots(Request $request)
     {
         $request->validate([
@@ -171,7 +223,13 @@ class AppointmentsController extends Controller
         return response()->json($availableTimes);
     }
 
-    // validate data - used in store and update
+    /**
+     * Internal function to validate that required request parameters are present
+     * 
+     * Returns an array containing the valid paramaters. If any paramaters fail validation, the previous page is autmatically returned containing the validation errors.
+     * 
+     * @return Array
+     */
     protected function validateRequest()
     {
         return request()->validate([
@@ -184,6 +242,17 @@ class AppointmentsController extends Controller
         ]);
     }
 
+    /**
+     * Helper function used to send email using the default mail provider.
+     * 
+     * @param string $to_email The email address of the recipient
+     * @param string $tp_name The name of the recipient
+     * @param View $view The blade view to be displayed in the body of the message
+     * @param Array $data Any data required by the view
+     * @param string $subject The text to be sent in the subject line of the email
+     * 
+     * @return void
+     */
     protected function sendEmail($to_email, $to_name, $view, $data, $subject)
     {
         Mail::send($view, $data, function ($message) use ($to_email, $to_name, $subject) {

@@ -6,14 +6,20 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * Model class representing a logged-in (non-anonymous) user of the website.
+ */
 class User extends Authenticatable
 {
     use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * Eloquent member for storing column names.
+     * 
+     * Eloquent uses this member to determine which columns are meant to be in the table. In this case the array contains name, email, password, requested_verification, and biography.
+     * This should not be manipulated directly.
+     * 
+     * @var Array
      */
     protected $fillable = [
         'name', 'email', 'password', "requested_verification", 'biography'
@@ -22,7 +28,7 @@ class User extends Authenticatable
     /**
      * The attributes that should be hidden for arrays.
      *
-     * @var array
+     * @var Array
      */
     protected $hidden = [
         'password', 'remember_token',
@@ -31,18 +37,27 @@ class User extends Authenticatable
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var Array
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Determines the default values to be assigned to the specified columns.
+     * 
+     * @var Array
+     */
     protected $attributes = [
         "role" => "Client",
         "requested_verification" => 0
     ];
 
-    // Relationships
+    /**
+     * Foreign key relationship representing all appointments belonging to a user.
+     * 
+     * @return Array
+     */
     public function appointment() 
     {
         return $this->hasMany('App\Appointment');
