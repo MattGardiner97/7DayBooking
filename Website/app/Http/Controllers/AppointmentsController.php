@@ -246,7 +246,7 @@ class AppointmentsController extends Controller
      * Helper function used to send email using the default mail provider.
      * 
      * @param string $to_email The email address of the recipient
-     * @param string $tp_name The name of the recipient
+     * @param string $to_name The name of the recipient
      * @param View $view The blade view to be displayed in the body of the message
      * @param Array $data Any data required by the view
      * @param string $subject The text to be sent in the subject line of the email
