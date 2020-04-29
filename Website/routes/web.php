@@ -18,7 +18,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Scheduling routes
 Route::get("/schedules/show","SchedulesController@Show");
 Route::get("/schedules/update","SchedulesController@Update_Get");
-Route::get("/schedules/new","SchedulesController@New");
+Route::get("/schedules/new","SchedulesController@NewSchedule");
 Route::post("/schedules/update","SchedulesController@Update_Post");
 Route::post("/schedules/create", "SchedulesController@Create");
 Route::get("/schedules/delete","SchedulesController@Delete");
