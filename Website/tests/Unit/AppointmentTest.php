@@ -53,6 +53,18 @@ class AppointmentTest extends TestCase
         $response->assertSessionHasErrors('time');
     }
 
+    public function test_an_appointment_can_be_deleted()
+    {
+        $this->actingAs($this->client())->post('/appointments', $this->data());
+
+        $appointment = Appointment::first();
+        $this->assertCount(1, Appointment::all());
+
+        $response = $this->delete('/appointments' . '/' . $appointment->id);
+
+        $this->assertCount(0, Appointment::all());
+    }
+
     private function data()
     {
         return [
