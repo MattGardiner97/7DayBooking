@@ -102,13 +102,12 @@ class AppointmentsController extends Controller
                 );
 
                 return view('appointments.confirmed', compact('appointment'));
-
             } else {
-// update the appointment
+                // update the appointment
                 $appointment = Appointment::find($this->validateRequest()["id"]);
                 $appointment->update($this->validateRequest());
 
-// send an email
+                // send an email
                 $this->sendEmail(
                     $appointment->client->email,
                     $appointment->client->name,

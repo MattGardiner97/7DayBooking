@@ -34,7 +34,11 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.view')->with('counsellor', $user);   
+        if ($user->role == 'Counsellor') {
+            return view('users.view')->with('counsellor', $user);
+        } else {
+            return redirect('/');
+        }
     }
 
     /**
@@ -63,9 +67,9 @@ class UsersController extends Controller
         //concatenate wildcards to string as it doesn't appear that laravel does this automatically
         $searchTerm = '%' . trim($request->input('search')) . '%'; //can't be safe? sql injection?
         $counsellors = User::where('role', 'Counsellor')
-                            ->where( 'biography', 'LIKE', $searchTerm)
-                            ->select('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
-                            ->get();
+            ->where('biography', 'LIKE', $searchTerm)
+            ->select('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
+            ->get();
         return view('users.list')->with('counsellors', $counsellors);
     }
 
@@ -78,9 +82,9 @@ class UsersController extends Controller
      */
     public function showAllCounsellors()
     {
-        $counsellors = User::where('role','Counsellor')
-                            ->select('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
-                            ->get();
+        $counsellors = User::where('role', 'Counsellor')
+            ->select('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
+            ->get();
         /*$counsellors = User::where('role', 'Counsellor')
                             ->where('verified', '=', '1')
                             ->select("id", "name", "email")->get();*/
@@ -128,8 +132,8 @@ class UsersController extends Controller
     {
         $success = false;
         $user = User::where('id', $request->input('id'))->first();
-        if (!empty($user)){
-            if($request->input("password") != null){
+        if (!empty($user)) {
+            if ($request->input("password") != null) {
                 $user->password = Hash::make($request->input("password"));
             }
 
@@ -137,7 +141,7 @@ class UsersController extends Controller
             $user->email = $request->input("email");
             if (auth()->user()->id == $request->input('id'))
                 $user->biography = $request->input("biography");
-            
+
             if ($user->save())
                 $success = true;
         }

@@ -59,7 +59,7 @@
                 <tr>
                     <th scope="row">{{$appointment->date}}</th>
                     <td>{{date('h:i a', strtotime($appointment->time . ':00'))}}</td>
-                    <td><a href='/users/{{$appointment->counsellor->id}}'>{{$appointment->counsellor->name}}</a>
+                    <td><a href='/users/show/{{$appointment->counsellor->id}}'>{{$appointment->counsellor->name}}</a>
                     </td>
                     <td>
                         <a href="/appointments/edit/{{$appointment->id}}" class="btn btn-sm btn-soft-primary mb-2">Change</a>
