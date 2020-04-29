@@ -63,6 +63,24 @@ class AppointmentTest extends TestCase
         $response = $this->delete('/appointments' . '/' . $appointment->id);
 
         $this->assertCount(0, Appointment::all());
+        $response->assertViewIs('appointments.cancelled');
+    }
+
+    public function test_an_appointment_can_be_updated()
+    {
+
+        $this->withoutExceptionHandling();
+
+        $this->actingAs($this->client())->post('/appointments', $this->data());
+
+        $appointment = Appointment::first();
+
+        $response = $this->post('/appointments', [
+            'id' => $appointment->id, 'counsellor_id' => '1', 'client_id' => '1', 'date' => '2020-01-01', 'time' => '12'
+        ]);
+
+        $this->assertEquals('12', Appointment::first()->time);
+        $response->assertViewIs('appointments.changed');
     }
 
     private function data()
