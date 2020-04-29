@@ -16,7 +16,6 @@ class AppointmentTest extends TestCase
     /** @test */
     public function test_an_appointment_can_be_created()
     {
-
         $this->withoutExceptionHandling();
 
         $response = $this->actingAs($this->client())->post('/appointments', $this->data());
@@ -26,6 +25,34 @@ class AppointmentTest extends TestCase
         $response->assertViewIs('appointments.confirmed');
     }
 
+    public function test_an_appointment_must_have_a_client()
+    {
+        $response = $this->actingAs($this->client())->post('/appointments', ['id' => '-1', 'counsellor_id' => '1', 'client_id' => '', 'date' => '2020-01-01', 'time' => '10']);
+
+        $response->assertSessionHasErrors('client_id');
+    }
+
+    public function test_an_appointment_must_have_a_counsellor()
+    {
+        $response = $this->actingAs($this->client())->post('/appointments', ['id' => '-1', 'counsellor_id' => '', 'client_id' => '1', 'date' => '2020-01-01', 'time' => '10']);
+
+        $response->assertSessionHasErrors('counsellor_id');
+    }
+
+    public function test_an_appointment_must_have_a_date()
+    {
+        $response = $this->actingAs($this->client())->post('/appointments', ['id' => '-1', 'counsellor_id' => '1', 'client_id' => '1', 'date' => '', 'time' => '10']);
+
+        $response->assertSessionHasErrors('date');
+    }
+
+    public function test_an_appointment_must_have_a_time()
+    {
+        $response = $this->actingAs($this->client())->post('/appointments', ['id' => '-1', 'counsellor_id' => '1', 'client_id' => '1', 'date' => '2020-01-01', 'time' => '']);
+
+        $response->assertSessionHasErrors('time');
+    }
+
     private function data()
     {
         return [
@@ -33,7 +60,7 @@ class AppointmentTest extends TestCase
             'counsellor_id' => '1',
             'client_id' => '1',
             'date' => '2020-01-01',
-            'time' => '10', 
+            'time' => '10',
         ];
     }
 
