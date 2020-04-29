@@ -47,7 +47,7 @@ class SchedulesController extends Controller
      */
     public function NewSchedule(Request $request) 
     {
-        return view("Schedules.new");
+        return view("schedules.new");
     }
 
     /**
@@ -81,7 +81,7 @@ class SchedulesController extends Controller
     {
         $id = $request->input("id");
         $result = Schedule::where("id", $id)->first();
-        return view("Schedules.update", ["schedule" => $result]);
+        return view("schedules.update", ["schedule" => $result]);
     }
 
     /**
