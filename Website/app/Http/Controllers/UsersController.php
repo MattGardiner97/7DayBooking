@@ -55,8 +55,8 @@ class UsersController extends Controller
     /**
      * GET endpoint for performing a keyword search.
      * 
-     * Searches through all counsellors in the database and returns those whose biographies contain a match for the search term. Returns a view containing all counsellors that 
-     * match the search.
+     * Searches through all counsellors in the database and returns those whose biographies or names contain at least a partial match for the search term. 
+     * Returns a view containing all counsellors that match the search.
      * 
      * @param Request $request HTTP request object containing the search term.
      * 
@@ -65,10 +65,16 @@ class UsersController extends Controller
     public function searchByResults(Request $request)
     {
         //concatenate wildcards to string as it doesn't appear that laravel does this automatically
-        $searchTerm = '%' . trim($request->input('search')) . '%'; //can't be safe? sql injection?
-        $counsellors = User::where('role', 'Counsellor')
-            ->where('biography', 'LIKE', $searchTerm)
-            ->select('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
+        $searchTerm = '%' . trim($request->input('search')) . '%';
+        $counsellors = User::select('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
+            ->where('role', 'Counsellor')
+            //->where('biography', 'LIKE', $searchTerm)
+            ->orWhere(function($query) use($searchTerm)
+                {
+                    $query->where('biography', 'LIKE', $searchTerm)
+                          ->where('name', 'LIKE', $searchTerm);
+                }
+            )              
             ->get();
         return view('users.list')->with('counsellors', $counsellors);
     }
@@ -85,9 +91,6 @@ class UsersController extends Controller
         $counsellors = User::where('role', 'Counsellor')
             ->select('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
             ->get();
-        /*$counsellors = User::where('role', 'Counsellor')
-                            ->where('verified', '=', '1')
-                            ->select("id", "name", "email")->get();*/
         return view('users.list')->with('counsellors', $counsellors);
     }
 
