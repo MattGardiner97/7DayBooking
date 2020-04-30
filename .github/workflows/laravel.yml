@@ -34,5 +34,5 @@ jobs:
       uses: actions/upload-artifacts@v1
       with:
         name: TestLog
-        oath: TestLog.txt
+        path: TestLog.txt
         
