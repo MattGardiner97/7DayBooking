@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-//use PHPUnit\Framework\TestCase;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
@@ -10,11 +9,6 @@ use App\User;
 class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic unit test example.
-     *
-     * @return void
-     */
 
     public function testCreateUser()
     {
@@ -33,52 +27,51 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($admin)->get('/admin/verify');
         $response->assertLocation('/');
     }
-
+    //Need more assertions on client and counsellor
     public function testUpdateUserDetails()
     {
         $this->withoutExceptionHandling();
 
         $client = $this->client();
-        $this->assertTrue($client->save(), "Couldn't create client.");
-        $response = $this->actingAs($client)->get('/users/profile');
-        $response->assertLocation('/');
         $this->actingAs($this->client())->patch('/users/update/{user}', $this->data());
         $response = $this->patch('/users/update/{user}', [
-            'id' => $client->id, 'name' => 'TESTNAME', 'email' => 'TESTEMAIL@EMAIL.COM', 'password' => 'PASSWORD', 'biography' => ''
+            'id' => $client->id, 'name' => 'CLIENTNAME', 'email' => 'CLIENTEMAIL@EMAIL.COM', 'password' => 'CLIENTPASSWORD', 'biography' => ''
         ]);
-
-
+        $this->assertEquals('', $client->biography);
+        $response->assertViewIs('users.profile');
 
         $counsellor = $this->counsellor();
-        $this->assertTrue($counsellor->save(), "Couldn't create Counsellor.");
-        $response = $this->actingAs($counsellor)->get('/users/profile');
-        $response->assertLocation('/');
-        $this->actingAs($this->client())->patch('/users/update/{user}', $this->data());
+        $this->actingAs($this->counsellor())->patch('/users/update/{user}', $this->data());
         $response = $this->patch('/users/update/{user}', [
-            'id' => $counsellor->id, 'name' => 'TESTNAME', 'email' => 'TESTEMAIL@EMAIL.COM', 'password' => 'PASSWORD', 'biography' => 'TEST BIOGRAPHY'
+            'id' => $counsellor->id, 'name' => 'COUNSELLORNAME', 'email' => 'COUNSELLORNEMAIL@EMAIL.COM', 'password' => 'COUNSELLORPASSWORD', 'biography' => 'COUNSELLORBIOGRAPHY'
         ]);
+        //Counsellor Biography isn't working???
+        $this->assertEquals('COUNSELLORBIOGRAPHY', $counsellor->biography);
+        $response->assertViewIs('users.profile');
     }
 
     private function client()
     {
-        $user = factory(User::class)->create();
-        return $user;
+        $client = factory(User::class)->create();
+        $client->role = 'Client';
+        $client->save();
+        return $client;
     }
 
     private function counsellor()
     {
-        $user = factory(User::class)->create();
-        $user->role = 'Counsellor';
-        $user->save();
-        return $user;
+        $counsellor = factory(User::class)->create();
+        $counsellor->role = 'Counsellor';
+        $counsellor->save();
+        return $counsellor;
     }
 
     private function admin()
     {
-        $user = factory(User::class)->create();
-        $user->role = 'Admin';
-        $user->save();
-        return $user;
+        $admin = factory(User::class)->create();
+        $admin->role = 'Admin';
+        $admin->save();
+        return $admin;
     }
 
     private function data()
@@ -91,5 +84,4 @@ class UserControllerTest extends TestCase
             'biography' => '10',
         ];
     }
-    
 }
