@@ -29,4 +29,10 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: Website/database/database.sqlite
-      run: php Website/vendor/phpunit/phpunit/phpunit Website/tests/Unit
+      run: php Website/vendor/phpunit/phpunit/phpunit Website/tests/Unit &> TestLog.txt
+    - name: Store artifacts
+      uses: actions/upload-artifacts@v2
+      with:
+        name: TestLog
+        oath: TestLog.txt
+        
