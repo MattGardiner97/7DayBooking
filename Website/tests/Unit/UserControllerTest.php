@@ -27,7 +27,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($admin)->get('/admin/verify');
         $response->assertLocation('/');
     }
-    //Need more assertions on client and counsellor
+
     public function testUpdateUserDetails()
     {
         $this->withoutExceptionHandling();
@@ -35,7 +35,11 @@ class UserControllerTest extends TestCase
         $client = $this->client();
         $this->actingAs($this->client())->patch('/users/update/{user}', $this->data());
         $response = $this->patch('/users/update/{user}', [
-            'id' => $client->id, 'name' => 'CLIENTNAME', 'email' => 'CLIENTEMAIL@EMAIL.COM', 'password' => 'CLIENTPASSWORD', 'biography' => ''
+            'id' => $client->id,
+            'name' => 'CLIENTNAME',
+            'email' => 'CLIENTEMAIL@EMAIL.COM',
+            'password' => 'CLIENTPASSWORD',
+            'biography' => '',
         ]);
         $this->assertEquals('', $client->biography);
         $response->assertViewIs('users.profile');
@@ -43,7 +47,11 @@ class UserControllerTest extends TestCase
         $counsellor = $this->counsellor();
         $this->actingAs($this->counsellor())->patch('/users/update/{user}', $this->data());
         $response = $this->patch('/users/update/{user}', [
-            'id' => $counsellor->id, 'name' => 'COUNSELLORNAME', 'email' => 'COUNSELLORNEMAIL@EMAIL.COM', 'password' => 'COUNSELLORPASSWORD', 'biography' => 'COUNSELLORBIOGRAPHY'
+            'id' => $counsellor->id,
+            'name' => 'COUNSELLORNAME',
+            'email' => 'COUNSELLORNEMAIL@EMAIL.COM',
+            'password' => 'COUNSELLORPASSWORD',
+            'biography' => 'COUNSELLORBIOGRAPHY',
         ]);
         //Counsellor Biography isn't working???
         $this->assertEquals('COUNSELLORBIOGRAPHY', $counsellor->biography);
