@@ -1,4 +1,8 @@
 # 7Day Psychology Online Booking System
+
+## Tests
+![Laravel](https://github.com/MattGardiner97/7DayBooking/workflows/Laravel/badge.svg)
+
 ## Introduction
 This is an appointment booking system written for the COIT13230 capstone project. The system is written in PHP/Laravel and uses MySQL for data storage.
 
