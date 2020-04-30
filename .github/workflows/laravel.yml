@@ -29,7 +29,7 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: Website/database/database.sqlite
-      run: php Website/vendor/phpunit/phpunit/phpunit Website/tests/Unit --coverage-html Coverage --testdox-html TestResults.html &> TestLog.txt
+      run: php Website/vendor/phpunit/phpunit/phpunit Website/tests/Unit --whitelist Website/app --coverage-html Coverage --testdox-html TestResults.html &> TestLog.txt
     - name: Store Test logs
       if: ${{ always() }}
       uses: actions/upload-artifact@v1
