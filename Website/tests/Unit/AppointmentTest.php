@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use App\Appointment;
 use App\User;
@@ -79,6 +79,16 @@ class AppointmentTest extends TestCase
 
         $this->assertEquals('12', Appointment::first()->time);
         $response->assertViewIs('appointments.changed');
+    }
+
+    public function test_error_when_user_not_logged_in_tries_to_create_appointment()
+    {
+        $this->withoutExceptionHandling();
+
+        $response = $this->post('/appointments', $this->data());
+        
+        $response->assertStatus(302);
+        $response->assertRedirect('/login');
     }
 
     private function data()
