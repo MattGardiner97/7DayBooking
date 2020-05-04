@@ -121,6 +121,17 @@ class AppointmentTest extends TestCase
         $this->assertEquals(null, $appointment->notes);
     }  
 
+    // FAILS *******************
+
+
+    public function test_a_date_cannot_be_less_than_today_when_creating()
+    {
+        $response = $this->actingAs($this->client())->post('/appointments', array_merge($this->data(), ['date' => date('Y-m-d')]));
+
+        $this->assertCount(0, Appointment::all());
+        $response->assertSessionHasErrors('date');
+    }
+
     public function test_a_counsellor_cannot_access_an_appointment_that_does_not_belong_to_them()
     {
         $client = $this->client();
