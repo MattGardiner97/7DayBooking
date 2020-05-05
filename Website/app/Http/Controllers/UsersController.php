@@ -68,10 +68,11 @@ class UsersController extends Controller
         $searchTerm = '%' . trim($request->input('search')) . '%';
         $counsellors = User::select('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
             ->where('role', 'Counsellor')
-            ->where('biography', 'LIKE', $searchTerm)
+            //->where('biography', 'LIKE', $searchTerm)
             ->orWhere(function($query) use($searchTerm)
                 {
-                    $query->where('name', 'LIKE', $searchTerm);
+                    $query->where('biography', 'LIKE', $searchTerm)
+                          ->where('name', 'LIKE', $searchTerm);
                 }
             )              
             ->get();
