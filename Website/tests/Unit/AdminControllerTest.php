@@ -15,7 +15,7 @@ class AdminControllerTest extends TestCase
   
     /**
      * Creates an Admin user
-     * tests if s
+     * 
      */
     public function CreateAdmin()
     {
@@ -47,6 +47,7 @@ class AdminControllerTest extends TestCase
     public function ClientRequestCounsellor()
     {
         $result = factory(User::class)->create();
+        $result->role = "Client"; //just to force in case sqlite database does anythign weird.
         $result->requested_verification = 1;
         
         $this->assertTrue($result->save(), "Couldn't create client");
