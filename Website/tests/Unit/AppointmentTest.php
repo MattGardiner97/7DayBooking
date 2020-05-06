@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Appointment;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -123,15 +124,6 @@ class AppointmentTest extends TestCase
 
     // FAILS *******************
 
-
-    public function test_a_date_cannot_be_less_than_today_when_creating()
-    {
-        $response = $this->actingAs($this->client())->post('/appointments', array_merge($this->data(), ['date' => date('Y-m-d')]));
-
-        $this->assertCount(0, Appointment::all());
-        $response->assertSessionHasErrors('date');
-    }
-
     public function test_a_counsellor_cannot_access_an_appointment_that_does_not_belong_to_them()
     {
         $client = $this->client();
@@ -172,6 +164,14 @@ class AppointmentTest extends TestCase
         $response->assertStatus(302);
         $response->assertRedirect('/login');
     }    
+
+    public function test_a_date_cannot_be_less_than_today_when_creating()
+    {
+        $response = $this->actingAs($this->client())->post('/appointments', array_merge($this->data(), ['date' => now()->toDateTimeString('Y-m-d')]));
+
+        $this->assertCount(0, Appointment::all());
+        $response->assertSessionHasErrors('date');
+    }
 
     private function data()
     {
