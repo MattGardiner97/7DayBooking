@@ -74,7 +74,7 @@ class UsersController extends Controller
                     $query->where('biography', 'LIKE', $searchTerm)
                           ->where('name', 'LIKE', $searchTerm);
                 }
-            )              
+                    )              
             ->get();
         return view('users.list')->with('counsellors', $counsellors);
     }
