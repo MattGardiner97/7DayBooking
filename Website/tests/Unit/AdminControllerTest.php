@@ -56,10 +56,10 @@ class AdminControllerTest extends TestCase
     }
 
     /**
-     * Test access privis for users before and after authentication as Admin
-     * to admin protected locations
+     * Test access privis for users as authentication as Admin
+     * 
      */
-    public function test_deny_access_to_locations_as_admin()
+    public function test_access_to_locations_as_admin()
     {
         $user = $this->CreateAdmin();
         //test portions of the site that is protected from Admin view (everything bar admins)
@@ -69,6 +69,7 @@ class AdminControllerTest extends TestCase
         $response = $this->actingAs($user)->get('/schedules/new');
         $response->assertLocation('/');
 
+        //should be able to see even as an admin.
         $response = $this->actingAs($user)->get('/users/profile');
         $response->assertOk();
 
@@ -80,7 +81,7 @@ class AdminControllerTest extends TestCase
     }
 
     /**
-     * Test access privs to users before and after authentication as a non admin to admin
+     * Test access privs as a non admin to admin
      * protected locations
      */
     public function test_access_to_locations_as_not_admin()
