@@ -29,6 +29,19 @@ class AdminControllerTest extends TestCase
     }
 
     /**
+     * Creates a counsellor
+     */
+    public function CreateCounsellor()
+    {
+        $result = factory(User::class)->create();
+        $result->role = "Counsellor";
+
+        $this->assertTrue($result->save(), "Couldn't create Counsellor");
+
+        return $result;
+    }
+
+    /**
      * Creates a Client with requested Counsellor privs
      */
     public function ClientRequestCounsellor()
@@ -43,8 +56,9 @@ class AdminControllerTest extends TestCase
 
     /**
      * Test access privis for users before and after authentication as Admin
+     * to admin protected locations
      */
-    public function test_access_to_locations()
+    public function test_deny_access_to_locations_as_admin()
     {
         $user = $this->CreateAdmin();
         //test portions of the site that is protected from Admin view (everything bar admins)
@@ -60,8 +74,43 @@ class AdminControllerTest extends TestCase
         //can't see biography data
         $response->assertDontSeeText('biography');
 
+        
 
     }
+
+    /**
+     * Test access privs to users before and after authentication as a non admin to admin
+     * protected locations
+     */
+    public function test_access_to_locations_as_not_admin()
+    {
+        //test as counsellor
+        $userCounsellor = $this->CreateCounsellor();
+
+        $response = $this->actingAs($userCounsellor)->get('/admin');
+        $response->assertStatus(302);
+        $response->assertLocation('/');
+
+        $response = $this->actingAs($userCounsellor)->get('/admin/verify');
+        $response->assertStatus(302);
+        $response->assertLocation('/');
+
+        //test as client
+        $userClient = $this->ClientRequestCounsellor();
+        $response = $this->actingAs($userClient)->get('/admin');
+        $response->assertStatus(302);
+        $response->assertLocation('/');
+
+        $response = $this->actingAs($userClient)->get('/admin/verify');
+        $response->assertStatus(302);
+        $response->assertLocation('/');
+
+        //test as nonauthenticated.
+        $response = $this->get('/admin');
+        $response->assertStatus(302);
+        $response->assertLocation('/');
+    }
+
 
     /**
      * Test whether client who has requested to be a Counsellor has been shown
@@ -103,7 +152,7 @@ class AdminControllerTest extends TestCase
 
         $response = $this->actingAs($userAdmin)->post('/admin/deny', ['id' => $userClient->id]);
         $response = $this->actingAs($userAdmin)->get('/admin/verify');
-        $response->assertSee('0', 'users');
+        $response->assertSeeText('0', 'users');
 
     }
 }
