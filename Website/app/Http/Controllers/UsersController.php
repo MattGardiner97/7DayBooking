@@ -65,22 +65,20 @@ class UsersController extends Controller
     public function searchByResults(Request $request)
     {
         $searchString = trim($request->input('search'));
-        if (strlen($searchString) > 1) {    
-        //concatenate wildcards to string as it doesn't appear that laravel does this automatically
+        if (strlen($searchString) > 0) {    
+            //concatenate wildcards to string
             $searchTerm = '%' . trim($request->input('search')) . '%';
         }
         else
-            $searchTerm = '% %';
+        {
+            return $this->showAllCounsellors(); //try to limit unintended behaviours
+            
+        }
         $counsellors = User::select('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
             ->where('role', 'Counsellor')
             ->where('biography', 'LIKE', $searchTerm)
             ->orWhere('name', 'LIKE', $searchTerm)
-            /*->orWhere(function($query) use($searchTerm)
-                {
-                    $query->where('biography', 'LIKE', $searchTerm)
-                          ->where('name', 'LIKE', $searchTerm);
-                }
-                    )      */        
+            ->orderBy('id')    
             ->get();
         return view('users.list')->with('counsellors', $counsellors);
     }
