@@ -44,7 +44,7 @@ class AdminControllerTest extends TestCase
     /**
      * Test access privis for users before and after authentication as Admin
      */
-    public function test_Show()
+    public function test_access_to_locations()
     {
         $user = $this->CreateAdmin();
         //test portions of the site that is protected from Admin view (everything bar admins)
@@ -66,7 +66,7 @@ class AdminControllerTest extends TestCase
     /**
      * Test whether client who has requested to be a Counsellor has been shown
      */
-    public function test_Verify()
+    public function test_approve_verify_request()
     {
         $userAdmin = $this->CreateAdmin();
         $userClient = $this->ClientRequestCounsellor();
@@ -78,7 +78,7 @@ class AdminControllerTest extends TestCase
 
         $response = $this->actingAs($userAdmin)->get('/admin/verify');
         $response->assertOk();
-        $response->assertSee('1', 'users');
+        $response->assertSeeText('1', 'users');
 
         $response = $this->actingAs($userAdmin)->post('/admin/verify', ['id' => $userClient->id]);
         //can't test this as no return value, but can test get to see if count --
@@ -86,6 +86,24 @@ class AdminControllerTest extends TestCase
         $response->assertSee('0', 'users');
         //$response->assertEquals($userClient->id, $response['id']);
         //$response->();
+
+    }
+
+    /**
+     * Thest whether the admin can deny a requested counsellor
+     */
+    public function test_deny_verify_request()
+    {
+        $userAdmin = $this->CreateAdmin();
+        $userClient = $this->ClientRequestCounsellor();
+
+        $response = $this->actingAs($userAdmin)->get('/admin/verify');
+        $response->assertOk();
+        $response->assertSeeText('1', 'users');
+
+        $response = $this->actingAs($userAdmin)->post('/admin/deny', ['id' => $userClient->id]);
+        $response = $this->actingAs($userAdmin)->get('/admin/verify');
+        $response->assertSee('0', 'users');
 
     }
 }
