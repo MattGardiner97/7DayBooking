@@ -11,17 +11,8 @@ use Tests\TestCase;
 class AdminControllerTest extends TestCase
 {
     use DatabaseMigrations;
-    /**
-     * A basic unit test example.
-     *
-     * 
-     
-    public function testExample()
-    {
-        $this->assertTrue(true);
-    }
-    */
 
+  
     /**
      * Creates an Admin user
      * tests if s
@@ -80,7 +71,7 @@ class AdminControllerTest extends TestCase
         $userAdmin = $this->CreateAdmin();
         $userClient = $this->ClientRequestCounsellor();
 
-        print("Sup");
+        
         //test to see whether can navigate to /admin page
         $response = $this->actingAs($userAdmin)->get('/admin');
         $response->assertOk();
