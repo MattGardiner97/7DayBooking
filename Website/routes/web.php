@@ -38,7 +38,7 @@ Route::get('/users/list', 'UsersController@showAllCounsellors');
 Route::get('/users/search', 'UsersController@searchBy');
 Route::post('/users/search', 'UsersController@searchByResults');
 Route::get('/users/profile', 'UsersController@profile');
-Route::patch('/users/update/{user}', 'UsersController@Update');
+Route::post('/users/update', 'UsersController@Update');
 
 // Authentication Routes
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

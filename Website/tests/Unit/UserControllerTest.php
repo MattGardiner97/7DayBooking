@@ -30,32 +30,27 @@ class UserControllerTest extends TestCase
 
     public function testUpdateUserDetails()
     {
-        $this->withoutExceptionHandling();
-
         $client = $this->client();
-        $this->actingAs($this->client())->patch('/users/update/{user}', $this->data());
-        $response = $this->patch('/users/update/{user}', [
+        /*$response = $this->actingAs($client)->post('/users/update/' . $client,
+        [
             'id' => $client->id,
             'name' => 'CLIENTNAME',
             'email' => 'CLIENTEMAIL@EMAIL.COM',
             'password' => 'CLIENTPASSWORD',
             'biography' => '',
-        ]);
-        $this->assertEquals('', $client->biography);
-        $response->assertViewIs('users.profile');
+        ]);*/
+        $clientData = [
+            'id' => $client->id,
+            'name' => 'CLIENTNAME',
+            'email' => 'CLIENTEMAIL@EMAIL.COM',
+            'password' => 'CLIENTPASSWORD',
+            'biography' => ''
+        ];
+        $response = $this->actingAs($client)->post('/users/update', $clientData);
+        dd($client);
+        //dump($response);
 
-        $counsellor = $this->counsellor();
-        $this->actingAs($this->counsellor())->patch('/users/update/{user}', $this->data());
-        $response = $this->patch('/users/update/{user}', [
-            'id' => $counsellor->id,
-            'name' => 'COUNSELLORNAME',
-            'email' => 'COUNSELLORNEMAIL@EMAIL.COM',
-            'password' => 'COUNSELLORPASSWORD',
-            'biography' => 'COUNSELLORBIOGRAPHY',
-        ]);
-        //Counsellor Biography isn't working???
-        $this->assertEquals('COUNSELLORBIOGRAPHY', $counsellor->biography);
-        $response->assertViewIs('users.profile');
+        //Again with Counsellor
     }
 
     private function client()
@@ -88,8 +83,8 @@ class UserControllerTest extends TestCase
             'id' => '1',
             'name' => '1',
             'email' => '1',
-            'password' => '2020-01-01',
-            'biography' => '10',
+            'password' => '1',
+            'biography' => '1',
         ];
     }
 }

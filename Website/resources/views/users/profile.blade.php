@@ -9,8 +9,7 @@
     </div>
     @endif
     @if (auth()->user()->id == $user->id)
-    <form action="/users/update/{{$user->id}}" method="POST">
-        @method('PATCH')
+    <form action="/users/update" method="POST">
         <input name="id" type="hidden" value="{{auth()->user()->id}}" />
 
         <div class="form-group">
@@ -36,7 +35,6 @@
 
         @endif
         <div class="form-group">
-            {{--<button class="btn btn-danger my-2 my-sm-0" name="Cancel" value="Cancel">Cancel</button>--}}
             <button class="btn btn-sm btn-soft-success my-2 my-sm-0" type="Save" name="Save" value="Submit">Save</button>
         </div>
     </form>
