@@ -10,6 +10,11 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+<!-- JS Global Compulsory -->
+<script src="{{asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{asset('assets/vendor/jquery-migrate/dist/jquery-migrate.min.js')}}"></script>
+<script src="{{asset('assets/vendor/popper.js/dist/umd/popper.min.js')}}"></script>
+<script src="{{asset('assets/vendor/bootstrap/bootstrap.min.js')}}"></script>
 
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -107,11 +112,7 @@
         </main>
     </div>
 
-    <!-- JS Global Compulsory -->
-    <script src="{{asset('assets/vendor/jquery/dist/jquery.min.js')}}"></script>
-    <script src="{{asset('assets/vendor/jquery-migrate/dist/jquery-migrate.min.js')}}"></script>
-    <script src="{{asset('assets/vendor/popper.js/dist/umd/popper.min.js')}}"></script>
-    <script src="{{asset('assets/vendor/bootstrap/bootstrap.min.js')}}"></script>
+    
 
     <!-- JS Front -->
     <script src="{{asset('assets/js/hs.core.js')}}"></script>
