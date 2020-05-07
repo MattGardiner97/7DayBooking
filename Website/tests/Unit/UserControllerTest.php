@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserControllerTest extends TestCase
 {
@@ -30,27 +31,17 @@ class UserControllerTest extends TestCase
 
     public function testUpdateUserDetails()
     {
-        $client = $this->client();
-        /*$response = $this->actingAs($client)->post('/users/update/' . $client,
-        [
-            'id' => $client->id,
-            'name' => 'CLIENTNAME',
-            'email' => 'CLIENTEMAIL@EMAIL.COM',
-            'password' => 'CLIENTPASSWORD',
-            'biography' => '',
-        ]);*/
-        $clientData = [
-            'id' => $client->id,
-            'name' => 'CLIENTNAME',
-            'email' => 'CLIENTEMAIL@EMAIL.COM',
-            'password' => 'CLIENTPASSWORD',
-            'biography' => ''
-        ];
-        $response = $this->actingAs($client)->post('/users/update', $clientData);
-        dd($client);
-        //dump($response);
+        $response = $this->actingAs($this->client())->post('/users/update', $this->clientData());
+        $client = User::where('id', '1')->first();
+        $this->assertEquals('clientName', $client->name);
+        $this->assertEquals('client@email.com', $client->email);
+        $this->assertEquals('clientBiography', $client->biography);
 
-        //Again with Counsellor
+        $response = $this->actingAs($this->client())->post('/users/update', $this->counsellorData());
+        $counsellor = User::where('id', '2')->first();
+        $this->assertEquals('counsellorName', $counsellor->name);
+        $this->assertEquals('counsellor@email.com', $counsellor->email);
+        $this->assertEquals('counsellorBiography', $counsellor->biography);
     }
 
     private function client()
@@ -77,14 +68,23 @@ class UserControllerTest extends TestCase
         return $admin;
     }
 
-    private function data()
+    private function clientData()
     {
         return [
             'id' => '1',
-            'name' => '1',
-            'email' => '1',
-            'password' => '1',
-            'biography' => '1',
+            'name' => 'clientName',
+            'email' => 'client@email.com',
+            'biography' => 'clientBiography'
+        ];
+    }
+
+    private function counsellorData()
+    {
+        return [
+            'id' => '2',
+            'name' => 'counsellorName',
+            'email' => 'counsellor@email.com',
+            'biography' => 'counsellorBiography'
         ];
     }
 }
