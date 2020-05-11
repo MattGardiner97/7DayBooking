@@ -44,6 +44,10 @@ class UserControllerTest extends TestCase
         $this->assertEquals('counsellorBiography', $counsellor->biography);
     }
 
+    public function testEditUser(){
+        
+    }
+
     private function client()
     {
         $client = factory(User::class)->create();

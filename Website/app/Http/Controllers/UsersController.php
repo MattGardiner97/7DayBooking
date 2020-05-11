@@ -105,10 +105,10 @@ class UsersController extends Controller
      * 
      * @return View
      */
-    public function edit(User $user)
+    /*public function edit(User $user)
     {
         return view('users.edit')->with('counsellor', $user);
-    }
+    }*/
 
     /**
      * GET endpoint for displaying the profile overview page.
