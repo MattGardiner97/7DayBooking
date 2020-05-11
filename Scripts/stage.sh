@@ -1,3 +1,5 @@
+set -e
+
 export HOME=/home/mattgardiner
 
 composer install -d /home/mattgardiner/staging/Website --no-interaction

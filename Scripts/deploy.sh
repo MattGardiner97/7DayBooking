@@ -1,3 +1,5 @@
+set -e
+
 export HOME=/home/mattgardiner
 
 rm -rf /home/mattgardiner/prod
