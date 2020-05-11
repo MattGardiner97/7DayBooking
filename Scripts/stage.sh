@@ -1,3 +1,5 @@
+export HOME=/home/mattgardiner
+
 composer install -d /home/mattgardiner/staging/Website --no-interaction
 cp /home/mattgardiner/.env.stage /home/mattgardiner/staging/Website/.env
 php /home/mattgardiner/staging/Website/artisan key:generate
