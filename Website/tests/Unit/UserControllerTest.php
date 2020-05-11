@@ -74,6 +74,7 @@ class UserControllerTest extends TestCase
             'id' => '1',
             'name' => 'clientName',
             'email' => 'client@email.com',
+            'password' => 'clientPassword',
             'biography' => 'clientBiography'
         ];
     }
@@ -84,6 +85,7 @@ class UserControllerTest extends TestCase
             'id' => '2',
             'name' => 'counsellorName',
             'email' => 'counsellor@email.com',
+            'password' => 'counsellorPassword',
             'biography' => 'counsellorBiography'
         ];
     }
