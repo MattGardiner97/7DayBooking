@@ -58,14 +58,22 @@ class UserControllerTest extends TestCase
     public function testSearchByResults()
     {
         $counsellor = $this->counsellor();
-        $search[] = [$counsellor->name];
-
-        $response = $this->actingAs($this->client())->post('/users/search', $search);
-        $response->assertSessionHasNoErrors();
-        $response->assertSessionHasAll($search);
-        //dd($response, $counsellor);
+        $response = $this->actingAs($this->client())->withSession(['search' => $counsellor->name])->post('/users/search');
+        $response->assertSessionHas('search', $counsellor->name);
     }
-
+    //Change to another assert?
+    public function testSearchBy()
+    {
+        $response = $this->actingAs($this->client())->get('/users/search');
+        $response->assertLocation('/');
+    }
+    //Change to another assert?
+    public function testShow()
+    {
+        $response = $this->actingAs($this->counsellor())->get('/users/show/{user}', $this->counsellorData());
+        $response->assertLocation('/');
+    }
+    
     private function client()
     {
         $client = factory(User::class)->create();
