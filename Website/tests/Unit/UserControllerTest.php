@@ -44,6 +44,28 @@ class UserControllerTest extends TestCase
         $this->assertEquals('counsellorBiography', $counsellor->biography);
     }
 
+    public function testShowAllCounsellors()
+    {
+        $client = $this->client();
+        $counsellor = $this->counsellor();
+
+        $response = $this->actingAs($client)->get('/users/list');
+        $response->assertLocation('/');
+        $response = $this->actingAs($counsellor)->get('/users/list');
+        $response->assertLocation('/');
+    }
+
+    public function testSearchByResults()
+    {
+        $counsellor = $this->counsellor();
+        $search[] = [$counsellor->name];
+
+        $response = $this->actingAs($this->client())->post('/users/search', $search);
+        $response->assertSessionHasNoErrors();
+        $response->assertSessionHasAll($search);
+        //dd($response, $counsellor);
+    }
+
     private function client()
     {
         $client = factory(User::class)->create();
