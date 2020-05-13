@@ -126,7 +126,7 @@ class AppointmentTest extends TestCase
 
     public function test_a_counsellor_cannot_access_an_appointment_that_does_not_belong_to_them()
     {
-        $client = $this->client();
+        $client = $this->client(); 
         $counsellor = $this->counsellor();
 
         $this->actingAs($client)->post('/appointments', array_merge($this->data(), ['counesllor_id' => $counsellor->id]));
