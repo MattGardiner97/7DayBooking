@@ -20,22 +20,9 @@ Methods
 -------
 
 
-### testCreateUser
+### testCreateClient
 
-    mixed Tests\Unit\UserControllerTest::testCreateUser()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### testUpdateUserDetails
-
-    mixed Tests\Unit\UserControllerTest::testUpdateUserDetails()
+    mixed Tests\Unit\UserControllerTest::testCreateClient()
 
 
 
@@ -46,22 +33,9 @@ Methods
 
 
 
-### testShowAllCounsellors
+### testCreateCounsellor
 
-    mixed Tests\Unit\UserControllerTest::testShowAllCounsellors()
-
-
-
-
-
-* Visibility: **public**
-
-
-
-
-### testSearchByResults
-
-    mixed Tests\Unit\UserControllerTest::testSearchByResults()
+    mixed Tests\Unit\UserControllerTest::testCreateCounsellor()
 
 
 
@@ -72,9 +46,9 @@ Methods
 
 
 
-### testSearchBy
+### testCreateAdmin
 
-    mixed Tests\Unit\UserControllerTest::testSearchBy()
+    mixed Tests\Unit\UserControllerTest::testCreateAdmin()
 
 
 
@@ -85,9 +59,74 @@ Methods
 
 
 
-### testShow
+### testUpdateClientDetails
 
-    mixed Tests\Unit\UserControllerTest::testShow()
+    mixed Tests\Unit\UserControllerTest::testUpdateClientDetails()
+
+
+
+
+
+* Visibility: **public**
+
+
+
+
+### testUpdateCounsellorDetails
+
+    mixed Tests\Unit\UserControllerTest::testUpdateCounsellorDetails()
+
+
+
+
+
+* Visibility: **public**
+
+
+
+
+### testClientViewAllCounsellors
+
+    mixed Tests\Unit\UserControllerTest::testClientViewAllCounsellors()
+
+
+
+
+
+* Visibility: **public**
+
+
+
+
+### testCounsellorViewAllCounsellors
+
+    mixed Tests\Unit\UserControllerTest::testCounsellorViewAllCounsellors()
+
+
+
+
+
+* Visibility: **public**
+
+
+
+
+### testClientViewSearchedResults
+
+    mixed Tests\Unit\UserControllerTest::testClientViewSearchedResults()
+
+
+
+
+
+* Visibility: **public**
+
+
+
+
+### testCounsellorViewSearchedResults
+
+    mixed Tests\Unit\UserControllerTest::testCounsellorViewSearchedResults()
 
 
 
