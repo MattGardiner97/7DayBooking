@@ -68,8 +68,8 @@ GET endpoint for displaying the counsellor search page.
 
 GET endpoint for performing a keyword search.
 
-Searches through all counsellors in the database and returns those whose biographies contain a match for the search term. Returns a view containing all counsellors that
-match the search.
+Searches through all counsellors in the database and returns those whose biographies or names contain at least a partial match for the search term.
+Returns a view containing all counsellors that match the search.
 
 * Visibility: **public**
 
@@ -89,22 +89,6 @@ Returns a view populated with each counsellor and their details.
 
 * Visibility: **public**
 
-
-
-
-### edit
-
-    \App\Http\Controllers\View App\Http\Controllers\UsersController::edit(\App\User $user)
-
-GET endpoint for displaying the edit user page.
-
-
-
-* Visibility: **public**
-
-
-#### Arguments
-* $user **[App\User](App-User.md)** - &lt;p&gt;The currently logged-in user.&lt;/p&gt;
 
 
 
