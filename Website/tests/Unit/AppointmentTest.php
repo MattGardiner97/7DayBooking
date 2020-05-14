@@ -167,7 +167,7 @@ class AppointmentTest extends TestCase
 
     public function test_a_date_cannot_be_less_than_today_when_creating()
     {
-        $response = $this->actingAs($this->client())->post('/appointments', array_merge($this->data(), ['date' => now()->toDateTimeString('Y-m-d')]));
+        $response = $this->actingAs($this->client())->post('/appointments', array_merge($this->data(), ['date' => date("Y-m-d")]));
 
         $this->assertCount(0, Appointment::all());
         $response->assertSessionHasErrors('date');
