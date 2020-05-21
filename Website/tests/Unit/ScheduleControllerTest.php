@@ -109,19 +109,22 @@ class ScheduleControllerTest extends TestCase
 
         //Test as client
         $user = $this->CreateClient();
-        $response = $this->actingAs($user)->get("/schedules/update?id=" . $schedule->id);
+        $response = $this->actingAs($user)->get("/schedules/update?id=".
+            $schedule->id);
         $response->assertLocation("/");
 
         //Test as counsellor
         $user = $this->CreateCounsellor();
         $schedule->CounsellorID = $user->id;
         $schedule->save();
-        $response = $this->actingAs($user)->get("/schedules/update?id=" . $schedule->id);
+        $response = $this->actingAs($user)->get("/schedules/update?id=".
+            $schedule->id);
         $response->assertOk();
         
         //Test counsellor cannot edit another counsellors schedule
         $user2 = $this->CreateCounsellor();
-        $response = $this->actingAs($user2)->get("/schedules/update?id=" . $schedule->id);
+        $response = $this->actingAs($user2)->get("/schedules/update?id=".
+            $schedule->id);
         $response->assertStatus(403);
     }
 
@@ -190,14 +193,16 @@ class ScheduleControllerTest extends TestCase
 
         //Test as client
         $user = $this->CreateClient();
-        $response = $this->actingAs($user)->get("/schedules/delete?id=" . $schedule->id);
+        $response = $this->actingAs($user)->get("/schedules/delete?id=".
+            $schedule->id);
         $response->assertLocation("/");
 
         //Test as counsellor
         $user = $this->CreateCounsellor();
         $schedule->CounsellorID = $user->id;
         $schedule->save();
-        $response = $this->actingAs($user)->get("/schedules/delete?id=" . $schedule->id);
+        $response = $this->actingAs($user)->get("/schedules/delete?id=".
+            $schedule->id);
         $response->assertLocation("/schedules/show");
 
         //Test as another counsellor
@@ -205,7 +210,8 @@ class ScheduleControllerTest extends TestCase
         $schedule->CounsellorID = $user->id;
         $schedule->save();
         $user2 = $this->CreateCounsellor();
-        $response = $this->actingAs($user2)->get("/schedules/delete?id=" . $schedule->id);
+        $response = $this->actingAs($user2)->get("/schedules/delete?id=".
+            $schedule->id);
         $response->assertStatus(403);
     }
 }

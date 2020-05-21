@@ -131,7 +131,8 @@ class AdminControllerTest extends TestCase
         $response->assertOk();
         $response->assertSee('1', 'users');
 
-        $response = $this->actingAs($userAdmin)->post('/admin/verify', ['id' => $userClient->id]);
+        $response = $this->actingAs($userAdmin)->post('/admin/verify',
+            ['id' => $userClient->id]);
         //can't test this as no return value, but can test get to see if count --
         $response = $this->actingAs($userAdmin)->get('/admin/verify');
         $response->assertSee('0', 'users');
@@ -152,7 +153,8 @@ class AdminControllerTest extends TestCase
         $response->assertOk();
         $response->assertSee('1', 'users');
 
-        $response = $this->actingAs($userAdmin)->post('/admin/deny', ['id' => $userClient->id]);
+        $response = $this->actingAs($userAdmin)->post('/admin/deny',
+            ['id' => $userClient->id]);
         $response = $this->actingAs($userAdmin)->get('/admin/verify');
         $response->assertSee('0', 'users');
 

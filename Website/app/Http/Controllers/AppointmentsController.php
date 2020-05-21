@@ -81,7 +81,10 @@ class AppointmentsController extends Controller
             ["time", "=", $request->input("time")],
         ])->get()) != 0) {
             // return errors
-            return $this->create()->withErrors(["existing_appointment" => "An appointment already exists for this timeslot."]);
+            return $this->create()->withErrors
+            (
+                ["existing_appointment" => "An appointment already exists for this timeslot."]
+            );
         } else {
             if ($request->input("id") == -1) {
                 // create appointment
@@ -171,7 +174,9 @@ class AppointmentsController extends Controller
         $counsellors = User::where('role', 'Counsellor')->get();
 
         // return view and pass information - appointment passed in by the route
-        return view('appointments.edit')->with(compact('appointment', 'counsellors'));
+        return view('appointments.edit')->with(
+            compact('appointment', 'counsellors')
+        );
     }
 
     /**

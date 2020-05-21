@@ -18,7 +18,8 @@ class AppointmentTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->actingAs($this->client())->post('/appointments', $this->data());
+        $response = $this->actingAs($this->client())->post('/appointments',
+            $this->data());
 
         $this->assertCount(1, Appointment::all());
 
@@ -27,28 +28,32 @@ class AppointmentTest extends TestCase
 
     public function test_an_appointment_must_have_a_client()
     {
-        $response = $this->actingAs($this->client())->post('/appointments', array_merge($this->data(), ['client_id' => '']));
+        $response = $this->actingAs($this->client())->post('/appointments',
+            array_merge($this->data(), ['client_id' => '']));
 
         $response->assertSessionHasErrors('client_id');
     }
 
     public function test_an_appointment_must_have_a_counsellor()
     {
-        $response = $this->actingAs($this->client())->post('/appointments', array_merge($this->data(), ['counsellor_id' => '']));
+        $response = $this->actingAs($this->client())->post('/appointments',
+            array_merge($this->data(), ['counsellor_id' => '']));
 
         $response->assertSessionHasErrors('counsellor_id');
     }
 
     public function test_an_appointment_must_have_a_date()
     {
-        $response = $this->actingAs($this->client())->post('/appointments', array_merge($this->data(), ['date' => '']));
+        $response = $this->actingAs($this->client())->post('/appointments',
+            array_merge($this->data(), ['date' => '']));
 
         $response->assertSessionHasErrors('date');
     }
 
     public function test_an_appointment_must_have_a_time()
     {
-        $response = $this->actingAs($this->client())->post('/appointments', array_merge($this->data(), ['time' => '']));
+        $response = $this->actingAs($this->client())->post('/appointments',
+            array_merge($this->data(), ['time' => '']));
 
         $response->assertSessionHasErrors('time');
     }
@@ -75,7 +80,11 @@ class AppointmentTest extends TestCase
         $appointment = Appointment::first();
 
         $response = $this->post('/appointments', [
-            'id' => $appointment->id, 'counsellor_id' => '1', 'client_id' => '1', 'date' => '2020-01-01', 'time' => '12'
+            'id' => $appointment->id,
+            'counsellor_id' => '1',
+            'client_id' => '1',
+            'date' => '2020-01-01',
+            'time' => '12'
         ]);
 
         $this->assertEquals('12', Appointment::first()->time);
@@ -96,11 +105,14 @@ class AppointmentTest extends TestCase
 
         $counsellor = $this->counsellor();
 
-        $this->actingAs($counsellor)->post('/appointments', array_merge($this->data(), ['client_id' => $client->id]));
-        $this->actingAs($counsellor)->post('/appointments', array_merge($this->data(), ['client_id' => $client->id, 'time' => '11']));
-
-        $this->actingAs($counsellor)->post('/appointments', array_merge($this->data(), ['client_id' => 5, 'time' => '06']));
-        $this->actingAs($counsellor)->post('/appointments', array_merge($this->data(), ['client_id' => 6, 'time' => '07']));
+        $this->actingAs($counsellor)->post('/appointments', array_merge($this->data(),
+            ['client_id' => $client->id]));
+        $this->actingAs($counsellor)->post('/appointments', array_merge($this->data(),
+            ['client_id' => $client->id, 'time' => '11']));
+        $this->actingAs($counsellor)->post('/appointments', array_merge($this->data(),
+            ['client_id' => 5, 'time' => '06']));
+        $this->actingAs($counsellor)->post('/appointments', array_merge($this->data(),
+            ['client_id' => 6, 'time' => '07']));
 
         $this->assertCount(4, Appointment::all());
 
@@ -113,7 +125,8 @@ class AppointmentTest extends TestCase
 
     public function test_notes_can_be_null()
     {
-        $this->actingAs($this->client())->post('/appointments', array_merge($this->data(), ['notes' => '']));
+        $this->actingAs($this->client())->post('/appointments', array_merge($this->data(),
+            ['notes' => '']));
 
         $this->assertCount(1, Appointment::all());
 
@@ -129,16 +142,20 @@ class AppointmentTest extends TestCase
         $client = $this->client(); 
         $counsellor = $this->counsellor();
 
-        $this->actingAs($client)->post('/appointments', array_merge($this->data(), ['counesllor_id' => $counsellor->id]));
+        $this->actingAs($client)->post('/appointments', array_merge($this->data(),
+            ['counesllor_id' => $counsellor->id]));
 
-        $this->actingAs($client)->post('/appointments', array_merge($this->data(), ['counesllor_id' => 3, 'time' => 5]));
+        $this->actingAs($client)->post('/appointments', array_merge($this->data(),
+            ['counesllor_id' => 3, 'time' => 5]));
 
         $this->assertCount(2, Appointment::all());
 
-        $response = $this->actingAs($counsellor)->get('/appointments/edit/' . Appointment::where('id', 1)->first()->id);
+        $response = $this->actingAs($counsellor)->get('/appointments/edit/'.
+            Appointment::where('id', 1)->first()->id);
         $response->assertOk();
 
-        $response = $this->actingAs($counsellor)->get('/appointments/edit/' . Appointment::where('id', 2)->first()->id);
+        $response = $this->actingAs($counsellor)->get('/appointments/edit/'.
+            Appointment::where('id', 2)->first()->id);
         
         $response->assertStatus(302);
         $response->assertRedirect('/login');
@@ -150,16 +167,20 @@ class AppointmentTest extends TestCase
 
         $counsellor = $this->counsellor();
 
-        $this->actingAs($counsellor)->post('/appointments', array_merge($this->data(), ['client_id' => $client->id]));
+        $this->actingAs($counsellor)->post('/appointments', array_merge($this->data(),
+            ['client_id' => $client->id]));
 
-        $this->actingAs($counsellor)->post('/appointments', array_merge($this->data(), ['client_id' => 3, 'time' => 1]));
+        $this->actingAs($counsellor)->post('/appointments', array_merge($this->data(),
+            ['client_id' => 3, 'time' => 1]));
 
         $this->assertCount(2, Appointment::all());
 
-        $response = $this->actingAs($client)->get('/appointments/edit/' . Appointment::where('id', 1)->first()->id);
+        $response = $this->actingAs($client)->get('/appointments/edit/'.
+            Appointment::where('id', 1)->first()->id);
         $response->assertOk();
 
-        $response = $this->actingAs($client)->get('/appointments/edit/' . Appointment::where('id', 2)->first()->id);
+        $response = $this->actingAs($client)->get('/appointments/edit/'.
+            Appointment::where('id', 2)->first()->id);
         
         $response->assertStatus(302);
         $response->assertRedirect('/login');
@@ -167,7 +188,8 @@ class AppointmentTest extends TestCase
 
     public function test_a_date_cannot_be_less_than_today_when_creating()
     {
-        $response = $this->actingAs($this->client())->post('/appointments', array_merge($this->data(), ['date' => date("Y-m-d")]));
+        $response = $this->actingAs($this->client())->post('/appointments',
+            array_merge($this->data(), ['date' => date("Y-m-d")]));
 
         $this->assertCount(0, Appointment::all());
         $response->assertSessionHasErrors('date');

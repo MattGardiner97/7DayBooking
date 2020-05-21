@@ -33,7 +33,11 @@ class SchedulesController extends Controller
         $counsellorID = $request->user()->id;
         $counsellorName = $request->user()->name;
         $schedules = Schedule::where("CounsellorID", $counsellorID)->get();
-        return view("schedules.show", ["schedules" => $schedules, "name" => $counsellorName]);
+        return view("schedules.show",
+        [
+            "schedules" => $schedules,
+            "name" => $counsellorName
+        ]);
     }
 
     /**
@@ -69,7 +73,12 @@ class SchedulesController extends Controller
         $counsellorID = $request->user()->id;
         $startDate = $request->input("startDate");
         $endDate = $request->input("endDate");
-        $result = Schedule::create(["CounsellorID" => $counsellorID, "StartDate" => $startDate, "EndDate" => $endDate]);
+        $result = Schedule::create(
+            [
+                "CounsellorID" => $counsellorID,
+                "StartDate" => $startDate,
+                "EndDate" => $endDate
+            ]);
         return redirect("/schedules/update?id=" . $result->id);
     }
 
@@ -107,7 +116,10 @@ class SchedulesController extends Controller
             "id" => "required|integer",
             "StartDate" => "required|date",
             "EndDate" => "required|date",
-            "ScheduleString" => ["required", "string", "regex:/(\d+,|\d+)*\/(\d+,|\d+)*\/(\d+,|\d+)*\/(\d+,|\d+)*\/(\d+,|\d+)*/"],
+            "ScheduleString" => [
+                "required", "string", 
+                "regex:/(\d+,|\d+)*\/(\d+,|\d+)*\/(\d+,|\d+)*\/(\d+,|\d+)*\/(\d+,|\d+)*/"
+            ],
         ]);
 
         $schedule = Schedule::where("id", $request->input("id"))->first();

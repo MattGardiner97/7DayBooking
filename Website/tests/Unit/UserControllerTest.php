@@ -69,7 +69,7 @@ class UserControllerTest extends TestCase
     public function testClientViewSearchedResults()
     {
         $counsellor = $this->counsellor();
-        $response = $this->actingAs($this->client())->post('/users/search', ['search' => $counsellor->name]);
+        $response = $this->actingAs($this->client())->post('/users/search', ['search' => $cSearch->name]);
         $response->assertSessionHas('search', $counsellor->name);
     }
 

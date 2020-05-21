@@ -74,7 +74,8 @@ class UsersController extends Controller
             return $this->showAllCounsellors(); //try to limit unintended behaviours
             
         }
-        $counsellors = User::select('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
+        $counsellors = User::select
+            ('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
             ->where('role', 'Counsellor')
             ->where('biography', 'LIKE', $searchTerm)
             ->orWhere('name', 'LIKE', $searchTerm)
