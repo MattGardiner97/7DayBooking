@@ -31,6 +31,7 @@ class ScheduleControllerTest extends TestCase
 
     /**
      * Test show all schedules for logged in user
+     * 
      * Endpoint: GET /schedules/show
      */
     public function test_Show()
@@ -52,6 +53,7 @@ class ScheduleControllerTest extends TestCase
 
     /**
      * Test Create schedule for logged in user
+     * 
      * Endpoint: POST /schedules/create
      */
     public function test_Create()
@@ -83,6 +85,7 @@ class ScheduleControllerTest extends TestCase
 
     /**
      * Test New schedule page
+     * 
      * Endpoint: GET /schedules/new
      */
     public function test_New()
@@ -101,6 +104,7 @@ class ScheduleControllerTest extends TestCase
 
     /**
      * Test update page
+     * 
      * Endpoint: GET /schedules/update
      */
     public function test_UpdateGet()
@@ -130,6 +134,7 @@ class ScheduleControllerTest extends TestCase
 
     /**
      * Test update endpoint
+     * 
      * Endpoint: POST /schedules/update
      */
     public function test_UpdatePost()
@@ -185,6 +190,7 @@ class ScheduleControllerTest extends TestCase
 
     /**
      * Test delete endpoint
+     * 
      * Endpoint: POST /schedules/delete
      */
     public function test_Delete()
