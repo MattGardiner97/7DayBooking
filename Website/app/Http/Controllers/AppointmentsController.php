@@ -74,6 +74,13 @@ class AppointmentsController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+        "counsellor_id" => "required|integer",
+        "date" => "required|date|after_or_equal:today",
+        "time" => "required|integer"
+        ]);
+
+
         // check the appointment does not exist already
         if (count(Appointment::where([
             ["counsellor_id", "=", $request->input("counsellor_id")],

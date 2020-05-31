@@ -75,7 +75,7 @@ class UsersController extends Controller
             
         }
         $counsellors = User::select
-            ('id', 'name', 'email', DB::raw('left(biography, 20) as biography'))
+            ('id', 'name', 'email', DB::raw('substr(biography, 0, 20) as biography'))
             ->where('role', 'Counsellor')
             ->where('biography', 'LIKE', $searchTerm)
             ->orWhere('name', 'LIKE', $searchTerm)
